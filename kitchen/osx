@@ -45,7 +45,7 @@ export PDINCLUDE="${PDDIR}/src"
 chmod -R u+rwX .
 
 
-# 2. iterate through all recipies and run them
+# 2. iterate through all recipes and run them
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx clean
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx depends
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx build

@@ -1,4 +1,4 @@
-Pd-iem recipies
+Pd-iem recipes
 ===============
 
 a recipe should contain the information needed to (automatically)
@@ -39,8 +39,8 @@ scratchpad::
 
 ## simple approach
 a recipe is a simple shell-script that performs all of the above tasks.
-- advantage: very simple; recipies are standalone!
-- advantage: recipies are standalone
+- advantage: very simple; recipes are standalone!
+- advantage: recipes are standalone
 - advantage: different fetch methods (wget, svn, zip) can be easily handled
 - drawback: dependencies will be fetched (and built?) multiple times,
       with potentially conflicting versions.
@@ -61,7 +61,7 @@ a recipe is a simple shell-script that performs all of the above tasks.
     cp iem_Tab/*.txt "${OUTDIR}/"
 
 ## declarative approach
-each recipe declares its dependencies; the dependencies for all recipies
+each recipe declares its dependencies; the dependencies for all recipes
 are resolved before the actual build-stages are called.
 
 - advantage: shorter build-times

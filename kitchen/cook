@@ -13,7 +13,7 @@ PDINCLUDE=/usr/include/pd
 
 base_path=$(abspath $(lastword $(MAKEFILE_LIST))/../..)
 
-recipe_path=$(base_path)/recipies
+recipe_path=$(base_path)/recipes
 BUILDDIR=$(base_path)/build
 
 
