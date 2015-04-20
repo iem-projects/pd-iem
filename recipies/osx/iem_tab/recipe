@@ -1,0 +1,17 @@
+#!/bin/sh
+
+## fetch dependencies
+# (nada)
+
+## fetch external
+svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
+
+## build external
+make -C iem_tab/src PD_INCLUDE="${PDINCLUDE}"
+
+## install the external
+OUTDIR="${DESTDIR}/iem_tab"
+mkdir -p "${OUTDIR}"
+cp iem_tab/iem_tab.pd_darwin "${OUTDIR}/iem_tab.d_fat"
+cp iem_tab/*.pd "${OUTDIR}/"
+cp iem_tab/*.txt "${OUTDIR}/"
