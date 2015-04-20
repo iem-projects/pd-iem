@@ -28,7 +28,9 @@ brew link gettext --force
 brew install coreutils
 
 # 1.2 install Pd
-wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
+if [ ! -e pd-${PDVERSION}-64bit.mac.tar.gz ]; then
+ wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
+fi
 tar -xf pd-${PDVERSION}-64bit.mac.tar.gz
 ln -s "${BUILDDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/" pd
 
