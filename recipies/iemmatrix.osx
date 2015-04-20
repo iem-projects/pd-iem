@@ -1,0 +1,38 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+.PHONY: depends build install clean
+
+# #####################################
+# recipe for building iem_tab on OSX
+# #####################################
+
+OSXVERSION=10.5
+BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
+BREWARGS=--universal --osxversion=$(OSXVERSION)
+
+BUILDDIR=iemmatrix/build-osx
+
+build:
+	cd iemmatrix && ./autogen.sh
+	mkdir -p $(BUILDDIR)
+	cd $(BUILDDIR) && ../configure --
+
+depends:
+	brew update
+	brew install \
+		$(BREWURL)/fftw.rb \
+		$(BREWURL)/gsl.rb \
+		$(BREWURL)/libogg.rb \
+		$(BREWURL)/libvorbis.rb \
+		$(BREWURL)/flac.rb \
+		$(BREWURL)/libsndfile.rb \
+		$(BREWARGS)
+	-rm -rf iemmatrix
+	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17453 iemmatrix
+
+install:
+	make -C iemmatrix/build-osx install pkglibdir=iemmatrix
+
+clean:
+	-rm -rf iemmatrix
+	-brew uninstall libsndfile flac libvorbis libogg gsl fftw
