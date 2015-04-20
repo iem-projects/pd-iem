@@ -24,10 +24,10 @@ if [ ! -d "${BASEDIR}" ]; then error "no BASEDIR"; exit 1; fi
 if [ ! -d "${DESTDIR}" ]; then error "no DESTDIR"; exit 1; fi
 
 
-INSTALLSCRIPT="${0%.sh}-${TRAVIS_OS_NAME}.sh
+INSTALLSCRIPT="${0%.sh}-${TRAVIS_OS_NAME}.sh"
 
 if [ -x "${INSTALLSCRIPT}" ]; then
- "./${INSTALLSCRIPT}"
+ "${INSTALLSCRIPT}"
 else
  error "no install-script found for: ${TRAVIS_OS_NAME}"
  error "assuming all is well"
