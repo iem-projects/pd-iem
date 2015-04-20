@@ -4,6 +4,7 @@
 # (nada)
 
 ## fetch external
+rm -rf iem_tab
 svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
 
 ## build external
@@ -15,3 +16,7 @@ mkdir -p "${OUTDIR}"
 cp iem_tab/iem_tab.pd_darwin "${OUTDIR}/iem_tab.d_fat"
 cp iem_tab/*.pd "${OUTDIR}/"
 cp iem_tab/*.txt "${OUTDIR}/"
+
+
+## cleanup
+rm -rf iem_tab
