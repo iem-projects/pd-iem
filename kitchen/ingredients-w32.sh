@@ -29,7 +29,7 @@ sudo apt-get install binutils-mingw-w64-i686 gcc-mingw-w64-i686
 
 # 1.2 install Pd
 if [ ! -e pd-${PDVERSION}.msw.zip ]; then
- wget http://msp.ucsd.edu/Software/pd-$(PDVERSION).msw.zip
+ wget http://msp.ucsd.edu/Software/pd-${PDVERSION}.msw.zip
 fi
 unzip pd-${PDVERSION}.msw.zip
 
