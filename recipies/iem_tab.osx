@@ -1,0 +1,23 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+.PHONY: depends build install clean
+
+# #####################################
+# recipe for building iem_tab on OSX
+# #####################################
+
+build:
+	make -C iem_tab/src PD_INCLUDE=$(PDINCLUDE)
+
+depends:
+	-rm -rf iem_tab
+	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
+
+install:
+	install -p -m 755 -d $(DESTDIR)/iem_tab/
+	install -p -m 644 *.pd_darwin $(DESTDIR)/iem_tab/
+	install -p -m 644 *.pd $(DESTDIR)/iem_tab/
+	install -p -m 644*.txt $(DESTDIR)/iem_tab/
+
+clean:
+	-rm -rf iem_tab
