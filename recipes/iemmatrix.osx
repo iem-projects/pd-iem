@@ -4,7 +4,7 @@ all: clean depends build
 .PHONY: all depends build install clean
 
 # #####################################
-# recipe for building iem_tab on OSX
+# recipe for building iemmatrix on OSX
 # #####################################
 
 OSXVERSION=10.5
@@ -35,4 +35,4 @@ install:
 
 clean:
 	-rm -rf iemmatrix
-	-brew uninstall libsndfile flac libvorbis libogg gsl fftw
+	-brew uninstall libsndfile flac libvorbis libogg gsl fftw --force

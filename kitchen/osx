@@ -12,13 +12,17 @@ error() {
 ensuredir() {
    mkdir -p "$1" 2>/dev/null && cd "$1" && pwd
 }
+debug() {
+  error "$@"
+  $@
+}
 
 
 ## the actual work
 # 0. setup all paths
 SCRIPTDIR=$(ensuredir "${SCRIPTDIR}")
-BUILDDIR=$(ensuredir "${SCRIPTDIR}/../build")
 BASEDIR=$(ensuredir "${SCRIPTDIR}/..")
+BUILDDIR=$(ensuredir "${BASEDIR}/build")
 DESTDIR=$(ensuredir "${BASEDIR}/dist/pd-iem")
 if [ ! -d "${SCRIPTDIR}" ]; then error "no SCRIPTDIR"; exit 1; fi
 if [ ! -d "${BUILDDIR}" ]; then error "no BUILDDIR"; exit 1; fi
@@ -31,12 +35,15 @@ export DESTDIR
 cd "${BUILDDIR}"
 # 1.1 update brew
 brew update
-brew install pkg-config gettext
-brew link gettext --force
-brew install coreutils
+brew install pkg-config
+#brew install gettext
+#brew link gettext --force
+#brew install coreutils
 
 # 1.2 install Pd
-wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
+if [ ! -e pd-${PDVERSION}-64bit.mac.tar.gz ]; then
+ wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
+fi
 tar -xf pd-${PDVERSION}-64bit.mac.tar.gz
 export PDDIR="${BUILDDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/"
 export PDINCLUDE="${PDDIR}/src"
@@ -46,6 +53,7 @@ chmod -R u+rwX .
 
 
 # 2. iterate through all recipes and run them
+cd "${BASEDIR}"
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx clean
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx depends
 make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx build
