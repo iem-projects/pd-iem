@@ -1,0 +1,58 @@
+#!/bin/sh
+
+## setup some environmental variables
+SCRIPTDIR=${0%/*}
+PDVERSION=0.46-6
+
+
+## some helper functions
+error() {
+ echo "$@" 1>&2
+}
+ensuredir() {
+   local d
+   d=$(mkdir -p "$2" 2>/dev/null && cd "$1" && pwd)
+   if [ "x${d}" = "x" ]; then
+      error "unable to assert directory $1 (pwd: $(pwd))"
+      exit 1
+   fi
+}
+
+
+## the actual work
+# 0. setup all paths
+SCRIPTDIR=$(ensuredir "${SCRIPTDIR}")
+DEPDIR=$(ensuredir "${SCRIPTDIR}/../deps")
+BASEDIR=$(ensuredir "${SCRIPTDIR}/..")
+export DESTDIR=$(ensuredir "${BASEDIR}/dist/pd-iem")
+
+# 1. install dependencies
+# 1.1 update brew
+brew update
+brew install pkg-config gettext
+brew link gettext --force
+brew install coreutils
+
+# 1.2 install Pd
+cd "${DEPDIR}"
+wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
+tar -xf pd-${PDVERSION}-64bit.mac.tar.gz
+export PDDIR="${DEPDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/"
+
+# 1.X fix permissions
+chmod -R u+rwX .
+
+export PDINCLUDE="${PDDIR}/src"
+
+
+# 2. iterate through all recipies and run them
+for recipe in "${BASEDIR}/recipies/osx"/*/recipe
+do
+ cd "${recipe%/*}"
+ PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} ${recipe} ${DESTDIR}
+done
+
+
+# 3. create a zip
+cd ${DESTDIR%/*}
+zip -r ${DESTDIR##*/}.zip ${DESTDIR%/*}
