@@ -1,0 +1,31 @@
+#!/bin/sh
+
+RECIPEDIR=$1
+
+error() {
+ echo "$@" 1>&2
+}
+
+
+if [ -d "${RECIPEDIR}" ]; then
+ :
+else
+ error "no recipe directory ${RECIPEDIR}"
+ exit 1
+fi
+
+if [ "x${DESTDIR}" = "x" ]; then
+  export DESTDIR=/tmp/pd-iem
+fi
+if [ "x${PDINCLUDE}" = "x" ] ;then
+  export PDINCLUDE=.
+fi
+
+# iterate through all recipies and run them
+for recipe in "${RECIPEDIR}"/*/recipe
+do
+ if [ -x "${recipe}" ]; then
+  cd "${recipe%/*}"
+  "${recipe}"
+ fi
+done
