@@ -1,31 +1,25 @@
-#!/bin/sh
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
 
-RECIPEDIR=$1
+RECIPES=iemmatrix iem_tab
+TARGETOS=osx
 
-error() {
- echo "$@" 1>&2
-}
+TARGETS=$(RECIPES:=.$(TARGETOS))
+
+DESTDIR=/tmp/pd-iem
+PDINCLUDE=/usr/include/pd
+
+base_path=$(abspath $(lastword $(MAKEFILE_LIST))/../..)
+
+recipe_path=$(base_path)/recipies
+BUILDDIR=$(base_path)/build
 
 
-if [ -d "${RECIPEDIR}" ]; then
- :
-else
- error "no recipe directory ${RECIPEDIR}"
- exit 1
-fi
-
-if [ "x${DESTDIR}" = "x" ]; then
-  export DESTDIR=/tmp/pd-iem
-fi
-if [ "x${PDINCLUDE}" = "x" ] ;then
-  export PDINCLUDE=.
-fi
-
-# iterate through all recipies and run them
-for recipe in "${RECIPEDIR}"/*/recipe
-do
- if [ -x "${recipe}" ]; then
-  cd "${recipe%/*}"
-  "${recipe}"
- fi
-done
+all depends build install clean:
+	for i in $(TARGETS); do \
+		test -e $(recipe_path)/$$i && \
+		mkdir -p $(BUILDDIR)/$$i && \
+		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i $@; \
+	done
