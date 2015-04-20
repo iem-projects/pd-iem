@@ -2,6 +2,7 @@
 
 ## setup some environmental variables
 SCRIPTDIR=${0%/*}
+PDVERSION=0.46-6
 
 
 ## some helper functions
