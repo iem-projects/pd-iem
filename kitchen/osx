@@ -17,18 +17,18 @@ ensuredir() {
 ## the actual work
 # 0. setup all paths
 SCRIPTDIR=$(ensuredir "${SCRIPTDIR}")
-DEPDIR=$(ensuredir "${SCRIPTDIR}/../deps")
+BUILDDIR=$(ensuredir "${SCRIPTDIR}/../build")
 BASEDIR=$(ensuredir "${SCRIPTDIR}/..")
 DESTDIR=$(ensuredir "${BASEDIR}/dist/pd-iem")
 if [ ! -d "${SCRIPTDIR}" ]; then error "no SCRIPTDIR"; exit 1; fi
-if [ ! -d "${DEPDIR}" ]; then error "no DEPDIR"; exit 1; fi
+if [ ! -d "${BUILDDIR}" ]; then error "no BUILDDIR"; exit 1; fi
 if [ ! -d "${BASEDIR}" ]; then error "no BASEDIR"; exit 1; fi
 if [ ! -d "${DESTDIR}" ]; then error "no DESTDIR"; exit 1; fi
 
 export DESTDIR
 
 # 1. install dependencies
-cd "${DEPDIR}"
+cd "${BUILDDIR}"
 # 1.1 update brew
 brew update
 brew install pkg-config gettext
@@ -38,17 +38,18 @@ brew install coreutils
 # 1.2 install Pd
 wget http://msp.ucsd.edu/Software/pd-${PDVERSION}-64bit.mac.tar.gz
 tar -xf pd-${PDVERSION}-64bit.mac.tar.gz
-export PDDIR="${DEPDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/"
+export PDDIR="${BUILDDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/"
 export PDINCLUDE="${PDDIR}/src"
 
 # 1.X fix permissions
 chmod -R u+rwX .
-cd "${BASEDIR}"
 
 
 # 2. iterate through all recipies and run them
-PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} "${SCRIPTDIR}/cook" "${BASEDIR}/recipies/osx"
-
+make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx clean
+make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx depends
+make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx build
+make -f "${SCRIPTDIR}/cook" -C build PDDIR=${PDDIR} PDINCLUDE=${PDINCLUDE} DESTDIR=${DESTDIR} TARGETOS=osx install
 
 # 3. create a zip
 cd ${DESTDIR%/*}
