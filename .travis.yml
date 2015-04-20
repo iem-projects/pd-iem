@@ -1,0 +1,11 @@
+language: C
+
+## 'os' selection needs to be enabled manually by emailing travis-ci
+os:
+  - osx
+
+before_install:
+- mkdir -p $(pwd)/build
+- ./kitchen/ingredients.sh
+script:
+- make -C build -f kitchen/cook DESTDIR=dist TARGETOS=${TRAVIS_OS_NAME} build install PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src
