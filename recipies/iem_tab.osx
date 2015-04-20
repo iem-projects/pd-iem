@@ -1,6 +1,7 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-.PHONY: depends build install clean
+all: clean depends build
+.PHONY: all depends build install clean
 
 # #####################################
 # recipe for building iem_tab on OSX
