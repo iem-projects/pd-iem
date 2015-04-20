@@ -24,11 +24,15 @@ if [ ! -d "${BASEDIR}" ]; then error "no BASEDIR"; exit 1; fi
 if [ ! -d "${DESTDIR}" ]; then error "no DESTDIR"; exit 1; fi
 
 
-INSTALLSCRIPT="${0%.sh}-${TRAVIS_OS_NAME}.sh"
+if [ "x${TRAVIS_OS_NAME}" = "xlinux" ]; then
+ TRAVIS_OS_NAME=w32
+fi
+
+INSTALLSCRIPT="${0%.sh}-$(${SCRIPTDIR}/mangle_os.sh ${TRAVIS_OS_NAME}).sh"
 
 if [ -x "${INSTALLSCRIPT}" ]; then
  "${INSTALLSCRIPT}"
 else
- error "no install-script found for: ${TRAVIS_OS_NAME}"
+ error "no install-script found ${INSTALLSCRIPT}"
  error "assuming all is well"
 fi
