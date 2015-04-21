@@ -35,6 +35,6 @@ sudo apt-get install mingw-w64-tools
 if [ ! -e pd-${PDVERSION}.msw.zip ]; then
  wget http://msp.ucsd.edu/Software/pd-${PDVERSION}.msw.zip
 fi
-unzip pd-${PDVERSION}.msw.zip
+unzip -q pd-${PDVERSION}.msw.zip
 
 

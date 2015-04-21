@@ -21,7 +21,7 @@ build:
 
 depends:
 	-rm -rf iemmatrix
-	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
 	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 	brew install $(BREWURL)/gsl.rb $(BREWARGS)
 	brew install $(BREWURL)/libogg.rb $(BREWARGS)

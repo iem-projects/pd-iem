@@ -12,7 +12,7 @@ build:
 
 depends:
 	-rm -rf iem_tab
-	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
 
 install:
 	install -p -m 755 -d $(DESTDIR)/iem_tab/

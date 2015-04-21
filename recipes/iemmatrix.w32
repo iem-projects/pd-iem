@@ -26,19 +26,19 @@ build:
 depends:
 	mkdir -p "$(DEPDIR)"
 	-rm -rf iemmatrix
-	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
 
 	-rm -rf "$(FFTWPATH)"
 	wget -c -O "$(DEPDIR)/fftw.zip" "ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll32.zip" && \
-		unzip -d "$(FFTWPATH)" "$(DEPDIR)/fftw.zip"
+		unzip -qd "$(FFTWPATH)" "$(DEPDIR)/fftw.zip"
 
 	-rm -rf "$(SNDFILEPATH)"
 	wget -c -O "$(DEPDIR)/sndfile.zip" "http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.25-w32.zip" && \
-		unzip -d "$(SNDFILEPATH)" "$(DEPDIR)/sndfile.zip"
+		unzip -qd "$(SNDFILEPATH)" "$(DEPDIR)/sndfile.zip"
 
 	-rm -rf "$(GSLPATH)"
 	wget -c -O "$(DEPDIR)/gsl.tgz" "ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz" && \
-		tar xvzf $(DEPDIR)/gsl.tgz
+		tar xzf $(DEPDIR)/gsl.tgz
 	mkdir -p gsl-1.16/bulid-w32
 	mkdir -p gsl-1.16/build-w32 && cd gsl-1.16/build-w32 && ../configure --host=i686-w64-mingw32 || cat config.log
 	make -C gsl-1.16/build-w32
