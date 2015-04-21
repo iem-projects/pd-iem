@@ -5,10 +5,13 @@
 #
 # pass it a directory containing binaries that need local dependencies
 
-    
+error() {
+  echo "$@" 1>&2
+}
+
 if [ $# -ne 1 ]; then
-	echo "Usage: $0 external/dir/"
-	echo "  i.e. $0 iemmatrix/"
+	error "Usage: $0 external/dir/"
+	error "  i.e. $0 iemmatrix/"
 	exit
 fi
 
