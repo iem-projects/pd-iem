@@ -24,8 +24,9 @@ cd "${BUILDDIR}"
 # 1.1 install MinGW64 toolchain
 sudo apt-get update
 sudo apt-get install binutils-mingw-w64-i686 gcc-mingw-w64-i686
-sudo apt-get install mingw-w64-i686-dev mingw-w64-tools
-sudo apt-get install mingw-w64
+sudo apt-get install mingw-w64-i686-dev || sudo apt-get install mingw-w64-dev
+sudo apt-get install mingw-w64-tools
+#sudo apt-get install mingw-w64
 #sudo apt-get install g++-mingw-w64-i686 wine
 
 
