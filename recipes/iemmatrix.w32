@@ -54,9 +54,6 @@ depends:
 	make -C gsl-1.16/build-w32
 	make -C gsl-1.16/build-w32 DESTDIR=$(GSLPATH) prefix="" install
 
-#	remove extraneous .la-files (as they do more harm than good)
-	find . -name "*.la" -delete
-
 install:
 	make -C $(BUILDDIR) install pkglibdir=iemmatrix
 
