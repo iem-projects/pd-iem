@@ -22,7 +22,7 @@ BUILDDIR=$(base_path)/build
 	for i in $(TARGETS); do \
 		test -e $(recipe_path)/$$i && \
 		mkdir -p $(BUILDDIR)/$$i && \
-		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i $@; \
+		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i $(@:.recursive=); \
 	done
 %.posthook:
 	@echo "$(@:.post=) DONE"
