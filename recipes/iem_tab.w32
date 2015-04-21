@@ -21,9 +21,9 @@ depends: clean
 
 install:
 	install -p -m 755 -d $(DESTDIR)/iem_tab/
-	install -p -m 644 *.dll $(DESTDIR)/iem_tab/
-	install -p -m 644 *.pd $(DESTDIR)/iem_tab/
-	install -p -m 644*.txt $(DESTDIR)/iem_tab/
+	install -p -m 644 iem_tab/*.dll $(DESTDIR)/iem_tab/
+	install -p -m 644 iem_tab/*.pd $(DESTDIR)/iem_tab/
+	install -p -m 644 iem_tab/*.txt $(DESTDIR)/iem_tab/
 
 clean:
 	-rm -rf iem_tab
