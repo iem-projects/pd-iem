@@ -3,6 +3,7 @@ sudo: True
 
 ## 'os' selection needs to be enabled manually by emailing travis-ci
 os:
+  - linux
   - osx
 
 before_install:
