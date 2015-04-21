@@ -36,9 +36,12 @@ depends:
 	wget -c -O "$(DEPDIR)/sndfile.zip" "http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.25-w32.zip" && \
 		unzip -d "$(SNDFILEPATH)" "$(DEPDIR)/sndfile.zip"
 
-#	-rm -rf "$(GSLPATH)"
-#	wget -c -O "$(DEPDIR)/gsl.zip" "http://???/libgsl-1.16-w32.zip" && \
-#		unzip -d "$(GSLPATH)" "$(DEPDIR)/gsl.zip"
+	-rm -rf "$(GSLPATH)"
+	wget -c -O "$(DEPDIR)/gsl.tgz" "ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz" && \
+		tar xvzf $(DEPDIR)/gsl.tgz
+	mkdir -p gst-1.16/build-w32 && cd gst-1.16/build-w32 && ../configure --host=i686-w64-mingw32
+	make -C gst-1.16/build-w32
+	make -C gst-1.16/build-w32 DESTDIR=$(GSLPATH) prefix="" install
 
 install:
 	make -C $(BUILDDIR) install pkglibdir=iemmatrix
