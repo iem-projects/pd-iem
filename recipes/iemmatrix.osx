@@ -16,7 +16,9 @@ BUILDDIR=iemmatrix/build-osx
 build:
 	cd iemmatrix && ./autogen.sh
 	mkdir -p $(BUILDDIR)
-	cd $(BUILDDIR) && ../configure --
+	cd $(BUILDDIR) && \
+	../configure --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
+	make -C $(BUILDDIR)
 
 depends:
 	-rm -rf iemmatrix
