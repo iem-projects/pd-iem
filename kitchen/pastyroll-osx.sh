@@ -10,10 +10,10 @@
 error() {
     echo "$@" 1>&2
 }
-if [ $# -ne 1 ]; then
-	error "Usage: $0 <embedpath> <binary>"
-	error "  i.e. $0 libs tmp/foo.pd_darwin"
-	error "         puts all dependencies of foo.pd_darwin into tmp/libs"
+if [ $# -lt 2 ]; then
+	error "Usage: $0 <embedpath> <binary> ..."
+	error "  i.e. $0 libs tmp/foo.pd_darwin tmp/bar.d_fat"
+	error "         puts all dependencies of foo.pd_darwin bar.d_fat into tmp/libs"
 	error "  i.e. $0 "" tmp/libs/libgoo.dylib"
 	error "         puts all dependencies into tmp/libs"
 	exit 1
