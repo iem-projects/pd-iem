@@ -26,5 +26,8 @@ BUILDDIR=$(base_path)/build
 	done
 %.posthook:
 	@echo "$(@:.post=) DONE"
+depends.posthook:
+	find $(BUILDDIR) -name "*.la" -exec rm -v \{\} \;
+
 
 depends build install clean: % : %.recursive %.posthook
