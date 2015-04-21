@@ -8,8 +8,10 @@ all: clean depends build
 # #################################### #
 
 BUILDDIR=iemmatrix/build-w32
-DEPDIR=$(pwd)
+DEPDIR=$(PWD)
 FFTWPATH=$(DEPDIR)/fftw
+SNDFILEPATH=$(DEPDIR)/sndfile
+GSLPATH=$(DEPDIR)/gsl
 
 export CPPFLAGS="-I$(GSLPATH)/include -I$(FFTWPATH) -I$(SNDFILEPATH)/include"
 export LDFLAGS="-L$(GSLPATH)/lib -L$(GSLPATH)/bin -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib"
@@ -32,11 +34,11 @@ depends:
 
 	-rm -rf "$(SNDFILEPATH)"
 	wget -c -O "$(DEPDIR)/sndfile.zip" "http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.25-w32.zip" && \
-		unzip -d "$(SNDFILEPATH" "$(DEPDIR)/sndfile.zip" 
+		unzip -d "$(SNDFILEPATH)" "$(DEPDIR)/sndfile.zip"
 
 #	-rm -rf "$(GSLPATH)"
 #	wget -c -O "$(DEPDIR)/gsl.zip" "http://???/libgsl-1.16-w32.zip" && \
-#		unzip -d "$(GSLPATH" "$(DEPDIR)/gsl.zip" 
+#		unzip -d "$(GSLPATH)" "$(DEPDIR)/gsl.zip"
 
 install:
 	make -C $(BUILDDIR) install pkglibdir=iemmatrix
