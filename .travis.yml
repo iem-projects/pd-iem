@@ -9,5 +9,6 @@ os:
 before_install:
 - mkdir -p $(pwd)/build
 - ./kitchen/ingredients.sh
+- make -C build -f $(pwd)/kitchen/cook DESTDIR=dist TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src depends
 script:
-- make -C build -f $(pwd)/kitchen/cook DESTDIR=dist TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) build install PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src
+- make -C build -f $(pwd)/kitchen/cook DESTDIR=dist TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src build install
