@@ -27,14 +27,24 @@ while [ 0 -lt $# ]; do
     bin=$1
     shift
     dir=${bin%/*}/${RELPATH}
-    for lib in $(otool -L "${bin}" | sed -e '1d' -e 's|^[^/]*||'  -e 's| .*||' -e '/^\/usr\/lib/d'); do
-	install -d "${dir}"
-	install -p "${lib}" "${dir}"
+    for lib in $(otool -L "${bin}" | sed -e '1d' -e '/@/d' -e 's|^[ 	]*||'  -e 's| .*||' -e '/^\/usr\/lib/d'); do
+	#error "lib[${bin}]: ${lib}"
 	libname=${lib##*/}
 	locallib="@loader_path/${RELPATH}/${libname}"
-	install_name_tool -id "${locallib}" "${dir}/${libname}"
-	install_name_tool -change "${lib}" "${locallib}" "${bin}"
-	count=$((count+1))
+	if [ -e "${lib}" ]; then
+	 if [ -e "${dir}/${libname}" ]; then
+	  error "skipping local copy of already existing library ${lib}"
+         else
+	  install -d "${dir}"
+	  install -p "${lib}" "${dir}"
+          error "installed '${lib}' in '${dir}': ${locallib}"
+         fi
+	 install_name_tool -id "${locallib}" "${dir}/${libname}"
+	 install_name_tool -change "${lib}" "${locallib}" "${bin}"
+	 count=$((count+1))
+	else
+	 error "skipping non-existant dependency ${lib}"
+	fi
     done
 done
 
