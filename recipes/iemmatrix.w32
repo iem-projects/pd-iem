@@ -14,7 +14,7 @@ SNDFILEPATH=$(DEPDIR)/sndfile
 GSLPATH=$(DEPDIR)/gsl
 
 CPPFLAGS=-I$(GSLPATH)/include -I$(FFTWPATH) -I$(SNDFILEPATH)/include
-LDFLAGS=-L$(GSLPATH)/lib -L$(GSLPATH)/bin -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib
+LDFLAGS=-L$(GSLPATH)/bin -L$(GSLPATH)/lib -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib
 
 export CC=i686-w64-mingw32-gcc
 export CPP=i686-w64-mingw32-gcc -E
