@@ -7,16 +7,21 @@ all: clean depends build
 # recipe for building iem_tab on OSX
 # #####################################
 
-build:
-	make -C iem_tab/src -f makefile_linux PD_INCLUDE=$(PDINCLUDE)
+CC=i686-w64-mingw32-gcc
+CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing"
+INCLUDE="-I. -I$(PDDIR)/src"
+LDFLAGS="--shared -g -O2 -mms-bitfields"
+LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -Xlinker --out-implib -Xlinker iem_tab.dll.a"
 
-depends:
-	-rm -rf iem_tab
+build:
+	make -C iem_tab/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
+
+depends: clean
 	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
 
 install:
 	install -p -m 755 -d $(DESTDIR)/iem_tab/
-	install -p -m 644 *.pd_darwin $(DESTDIR)/iem_tab/
+	install -p -m 644 src/*.dll $(DESTDIR)/iem_tab/
 	install -p -m 644 *.pd $(DESTDIR)/iem_tab/
 	install -p -m 644*.txt $(DESTDIR)/iem_tab/
 
