@@ -3,13 +3,12 @@
 all: clean depends build
 .PHONY: all depends build install clean
 
-# #####################################
-# recipe for building iemmatrix on OSX
-# #####################################
+# #################################### #
+# recipe for building iemmatrix on OSX #
+# #################################### #
 
-OSXVERSION=10.5
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
-BREWARGS=--universal --osxversion=$(OSXVERSION)
+BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
 
 BUILDDIR=iemmatrix/build-osx
 
