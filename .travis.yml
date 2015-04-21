@@ -14,7 +14,7 @@ deploy:
   provider: releases
   api_key:
     secure: M3LgNguw7chsEhBJnrkGB+CB2EWRYVkdO0zhXbzlXFBaIgjGzK5E5JWxKC1NoGqm/EmX9wQQgEtDn70C04Q9qHYjzws3g4BDAT8GKeByVaZdooAGCdzNFLp6IfdaRGEgwhj5+4ayDhQ6ongrh7CupUmMvRAePMjF9xExuwFFFPQ=
-  file: dist/pd-iem.zip
+  file: dist/pd-iem_${TRAVIS_OS_NAME}.zip
   on:
     repo: iem-projects/pd-iem
     tags: true

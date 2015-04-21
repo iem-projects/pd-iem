@@ -30,6 +30,6 @@ depends.posthook:
 	find $(BUILDDIR) -name "*.la" -exec rm -v \{\} \;
 install.posthook:
 	find $(DESTDIR) -name "*.la" -exec rm -v \{\} \;
-	cd $(dir $(DESTDIR)) && zip -r pd-iem.zip $(notdir $(DESTDIR))
+	cd $(dir $(DESTDIR)) && zip -r pd-iem_${TRAVIS_OS_NAME}.zip $(notdir $(DESTDIR))
 
 depends build install clean: % : %.recursive %.posthook
