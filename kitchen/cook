@@ -18,9 +18,13 @@ recipe_path=$(base_path)/recipes
 BUILDDIR=$(base_path)/build
 
 
-all depends build install clean:
+%.recursive:
 	for i in $(TARGETS); do \
 		test -e $(recipe_path)/$$i && \
 		mkdir -p $(BUILDDIR)/$$i && \
 		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i $@; \
 	done
+%.posthook:
+	@echo "$(@:.post=) DONE"
+
+depends build install clean: % : %.recursive %.posthook
