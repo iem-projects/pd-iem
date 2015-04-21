@@ -20,7 +20,7 @@ build:
 	mkdir -p $(BUILDDIR)
 	cd iemmatrix && ./autogen.sh
 	cd $(BUILDDIR) && \
-	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR)
+	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) || cat config.log
 	make -C $(BUILDDIR)
 
 depends:
@@ -40,7 +40,7 @@ depends:
 	wget -c -O "$(DEPDIR)/gsl.tgz" "ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz" && \
 		tar xvzf $(DEPDIR)/gsl.tgz
 	mkdir -p gsl-1.16/bulid-w32
-	mkdir -p gsl-1.16/build-w32 && cd gsl-1.16/build-w32 && ../configure --host=i686-w64-mingw32
+	mkdir -p gsl-1.16/build-w32 && cd gsl-1.16/build-w32 && ../configure --host=i686-w64-mingw32 || cat config.log
 	make -C gsl-1.16/build-w32
 	make -C gsl-1.16/build-w32 DESTDIR=$(GSLPATH) prefix="" install
 
