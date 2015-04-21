@@ -21,6 +21,8 @@ build:
 	cd iemmatrix && ./autogen.sh
 	cd $(BUILDDIR) && \
 	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) CPPFLAGS="$(CPPFLAGS)" LDFLAGS="$(LDFLAGS)" || cat config.log
+	egrep "^CC" $(BUILDDIR)/Makefile
+	grep "w64" $(BUILDDIR)/Makefile
 	make -C $(BUILDDIR)
 
 depends:
