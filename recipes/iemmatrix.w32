@@ -16,6 +16,10 @@ GSLPATH=$(DEPDIR)/gsl
 CPPFLAGS=-I$(GSLPATH)/include -I$(FFTWPATH) -I$(SNDFILEPATH)/include
 LDFLAGS=-L$(GSLPATH)/lib -L$(GSLPATH)/bin -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib
 
+export CC=i686-w64-mingw32-gcc
+export CPP=i686-w64-mingw32-gcc -E
+export LD=/usr/bin/i686-w64-mingw32-ld
+
 build:
 	mkdir -p $(BUILDDIR)
 	cd iemmatrix && ./autogen.sh
