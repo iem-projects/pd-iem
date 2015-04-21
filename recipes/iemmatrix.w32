@@ -13,14 +13,14 @@ FFTWPATH=$(DEPDIR)/fftw
 SNDFILEPATH=$(DEPDIR)/sndfile
 GSLPATH=$(DEPDIR)/gsl
 
-export CPPFLAGS="-I$(GSLPATH)/include -I$(FFTWPATH) -I$(SNDFILEPATH)/include"
-export LDFLAGS="-L$(GSLPATH)/lib -L$(GSLPATH)/bin -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib"
+CPPFLAGS=-I$(GSLPATH)/include -I$(FFTWPATH) -I$(SNDFILEPATH)/include
+LDFLAGS=-L$(GSLPATH)/lib -L$(GSLPATH)/bin -L$(FFTWPATH) -L$(SNDFILEPATH)/bin -L$(SNDFILEPATH)/lib
 
 build:
 	mkdir -p $(BUILDDIR)
 	cd iemmatrix && ./autogen.sh
 	cd $(BUILDDIR) && \
-	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) || cat config.log
+	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) CPPFLAGS=$(CPPFLAGS) LDFLAGS=$(LDFLAGS) || cat config.log
 	make -C $(BUILDDIR)
 
 depends:
