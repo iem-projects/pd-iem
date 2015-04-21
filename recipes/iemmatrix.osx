@@ -21,14 +21,12 @@ build:
 depends:
 	-rm -rf iemmatrix
 	svn export https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
-	brew install \
-		$(BREWURL)/fftw.rb \
-		$(BREWURL)/gsl.rb \
-		$(BREWURL)/libogg.rb \
-		$(BREWURL)/libvorbis.rb \
-		$(BREWURL)/flac.rb \
-		$(BREWURL)/libsndfile.rb \
-		$(BREWARGS)
+	brew install $(BREWURL)/fftw.rb $(BREWARGS)
+	brew install $(BREWURL)/gsl.rb $(BREWARGS)
+	brew install $(BREWURL)/libogg.rb $(BREWARGS)
+	brew install $(BREWURL)/libvorbis.rb $(BREWARGS)
+	brew install $(BREWURL)/flac.rb $(BREWARGS)
+	brew install $(BREWURL)/libsndfile.rb $(BREWARGS)
 
 install:
 	make -C iemmatrix/build-osx install pkglibdir=iemmatrix
