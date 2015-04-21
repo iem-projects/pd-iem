@@ -16,7 +16,7 @@ if [ $# -lt 2 ]; then
 	error "         puts all dependencies of foo.pd_darwin bar.d_fat into tmp/libs"
 	error "  i.e. $0 "" tmp/libs/libgoo.dylib"
 	error "         puts all dependencies into tmp/libs"
-	exit 1
+	exit 0
 fi
 
 RELPATH=$1
