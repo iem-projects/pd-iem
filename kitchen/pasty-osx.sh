@@ -1,103 +1,24 @@
 #!/bin/sh
 #
-# This script finds all of the dependecies from Fink and included them into
-# the Pd.app.  <hans@at.or.at>
+# This script finds all non-standard dependecies embeds them along the binares
+# originally written by  <hans@at.or.at>
 #
-# run it in the root directory where the externals are stored, i.e. "extra"
+# pass it a directory containing binaries that need local dependencies
 
     
 if [ $# -ne 1 ]; then
-	echo "Usage: $0 Pd.app-Contents"
-	echo "  i.e. $0 /Applications/Pd.app/Contents/"
+	echo "Usage: $0 external/dir/"
+	echo "  i.e. $0 iemmatrix/"
 	exit
 fi
 
-LIB_DIR=lib
-PD_APP_CONTENTS=$1
-PD_APP_LIB=$PD_APP_CONTENTS/$LIB_DIR
-EXTLIB_DIR=/usr/local/lib
+DIR=$1
 
-#echo "PD_APP_CONTENTS: $PD_APP_CONTENTS"
-#echo "PD_APP_LIB: $PD_APP_LIB"
+find "${DIR}" -type f -print0 | xargs -0 ${0%/*}/pastyroll-osx.sh libs
+RES=$?
 
-echo " "
-
-for pd_darwin in $(find $PD_APP_CONTENTS -name '*.pd_darwin'); do
-	LIBS=$(otool -L $pd_darwin | sed -n "s|.*${EXTLIB_DIR}/\(.*\.dylib\).*|\1|p")
-        echo "LIBS: $LIBS"
-	if [ "x$LIBS" != "x" ]; then
-		echo "$(echo $pd_darwin | sed 's|.*/\(.*\.pd_darwin$\)|\1|') is using:"
-		for lib in $LIBS; do
-			echo "    $lib"
-			install -d $PD_APP_LIB
-			install -p ${EXTLIB_DIR}/$lib $PD_APP_LIB
-			new_lib=$(echo $lib | sed 's|.*/\(.*\.dylib\)|\1|')
-			# @executable_path starts from Contents/Resources/bin/pd
-			install_name_tool -id @loader_path/$LIB_DIR/$new_lib $PD_APP_LIB/$new_lib
-			install_name_tool -change ${EXTLIB_DIR}/$lib @loader_path/$LIB_DIR/$new_lib $pd_darwin
-		done
-		echo " "
-	fi
-done
-
-# check for .so plugins used by libquicktime and others
-for so in $PD_APP_LIB/*/*.so; do
-	LIBS=$(otool -L $so | sed -n "s|.*${EXTLIB_DIR}/\(.*\.dylib\).*|\1|p")
-	if [ "x$LIBS" != "x" ]; then
-		echo "$(echo $so | sed 's|.*/\(lib.*/.*\.so\)|\1|') is using:"
-		for lib in $LIBS; do
-			echo "    $lib"
-			new_lib=$(echo $lib | sed 's|.*/\(.*\.dylib\)|\1|')
-			if [ -e  $PD_APP_LIB/$new_lib ]; then
-				echo "$PD_APP_LIB/$new_lib already exists, skipping copy."
-			else
-				install -vp ${EXTLIB_DIR}/$lib $PD_APP_LIB
-			fi
-			# @executable_path starts from Contents/Resources/bin/pd
-			install_name_tool -change ${EXTLIB_DIR}/$lib @loader_path/$LIB_DIR/$new_lib $so
-		done
-		echo " "
-	fi
-done
-
-for dylib in $PD_APP_LIB/*.dylib; do
-	LIBS=$(otool -L $dylib | sed -n "s|.*${EXTLIB_DIR}/\(.*\.dylib\).*|\1|p")
-	if [ "x$LIBS" != "x" ]; then
-		echo "$(echo $dylib | sed 's|.*/\(.*\.dylib\)|\1|') is using:"
-		for lib in $LIBS; do
-			echo "    $lib"
-			new_lib=$(echo $lib | sed 's|.*/\(.*\.dylib\)|\1|')
-			if [ -e  $PD_APP_LIB/$new_lib ]; then
-				echo "$PD_APP_LIB/$new_lib already exists, skipping copy."
-			else
-				install -vp ${EXTLIB_DIR}/$lib $PD_APP_LIB
-			fi
-			# @executable_path starts from Contents/Resources/bin/pd
-			install_name_tool -id @loader_path/$LIB_DIR/$new_lib $PD_APP_LIB/$new_lib
-			install_name_tool -change ${EXTLIB_DIR}/$lib @loader_path/$new_lib $dylib
-		done
-		echo " "
-	fi
-done
-
-# run it one more time to catch dylibs that depend on dylibs
-for dylib in $PD_APP_LIB/*.dylib; do
-	LIBS=$(otool -L $dylib | sed -n "s|.*${EXTLIB_DIR}/\(.*\.dylib\).*|\1|p")
-	if [ "x$LIBS" != "x" ]; then
-		echo "$(echo $dylib | sed 's|.*/\(.*\.dylib\)|\1|') is using:"
-		for lib in $LIBS; do
-			echo "    $lib"
-			new_lib=$(echo $lib | sed 's|.*/\(.*\.dylib\)|\1|')
-			if [ -e  $PD_APP_LIB/$new_lib ]; then
-				echo "$PD_APP_LIB/$new_lib already exists, skipping copy."
-			else
-				install -vp ${EXTLIB_DIR}/$lib $PD_APP_LIB
-			fi
-			# @executable_path starts from Contents/Resources/bin/pd
-			install_name_tool -id @loader_path/$LIB_DIR/$new_lib $PD_APP_LIB/$new_lib
-			install_name_tool -change ${EXTLIB_DIR}/$lib @loader_path/$new_lib $dylib
-		done
-		echo " "
-	fi
+while test 0 -lt ${RES}; do
+    find "${DIR}" -type f -print0 | xargs -0 ${0%/*}/pastyroll-osx.sh ''
+    RES=$?
 done
 

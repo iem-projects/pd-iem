@@ -11,19 +11,21 @@ error() {
     echo "$@" 1>&2
 }
 if [ $# -ne 1 ]; then
-	error "Usage: $0 <binary> [<embedpath>]"
-	error "  i.e. $0 tmp/foo.pd_darwin libs"
+	error "Usage: $0 <embedpath> <binary>"
+	error "  i.e. $0 libs tmp/foo.pd_darwin"
 	error "         puts all dependencies of foo.pd_darwin into tmp/libs"
-	error "  i.e. $0 tmp/libs/libgoo.dylib"
+	error "  i.e. $0 "" tmp/libs/libgoo.dylib"
 	error "         puts all dependencies into tmp/libs"
 	exit 1
 fi
 
-BINARIES=$1
-RELPATH=$2
+RELPATH=$1
+shift
 
 count=0
-for bin in ${BINARIES}; do
+while [ 0 -lt $# ]; do
+    bin=$1
+    shift
     dir=${bin%/*}/${RELPATH}
     for lib in $(otool -L "${bin}" | sed -e '1d' -e 's|^[^/]*||'  -e 's| .*||' -e '/^\/usr\/lib/d'); do
 	install -d "${dir}"
