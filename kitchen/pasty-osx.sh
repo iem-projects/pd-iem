@@ -32,4 +32,3 @@ while test 0 -lt ${RES}; do
     fi
     count=$((count+1))
 done
-
