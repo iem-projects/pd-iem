@@ -53,6 +53,7 @@ while [ 0 -lt $# ]; do
 		count=$((count+1))
 	    else
 		error "skipping unfound dependency ${lib}"
+		touch "${dir}/${lib}"
 	    fi
 	fi
     done
