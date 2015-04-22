@@ -26,3 +26,5 @@ while test 0 -lt ${RES}; do
     fi
     count=$((count+1))
 done
+
+find "${DIR}" -type f -iname "*.dll" -exec i686-w64-mingw32-strip --strip-unneeded \{\} \;
