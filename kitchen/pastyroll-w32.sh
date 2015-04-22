@@ -24,6 +24,9 @@ RELPATH=$1
 shift
 
 error "searching for embeddable libraries in $(pwd)"
+ls
+error "checking for FFTW-library"
+ls fftw
 
 count=0
 while [ 0 -lt $# ]; do
