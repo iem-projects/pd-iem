@@ -19,7 +19,7 @@ RES=$?
 count=0
 while test 0 -lt ${RES}; do
     error "########################## iteration ${count} ##################"
-    find "${DIR}" -type f -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh ''
+    find "${DIR}" -type f -iname "*.dll" -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh ''
     RES=$?
     if [ ${count} -gt ${MAXITERATIONS} ]; then
       RES=0
