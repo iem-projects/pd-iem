@@ -5,7 +5,7 @@ all: clean depends build
 
 RECIPES=iemmatrix iem_tab
 TARGETOS=osx
-export MACOSX_DEPLOYMENT_TARGET=$(OSXVERSION)
+export MACOSX_DEPLOYMENT_TARGET=10.5
 
 TARGETS=$(RECIPES:=.$(TARGETOS))
 
