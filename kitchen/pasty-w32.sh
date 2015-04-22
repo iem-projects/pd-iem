@@ -13,10 +13,13 @@ fi
 MAXITERATIONS=10
 DIR=$1
 
+## iteration 0 (get direct dependencies)
 find "${DIR}" -type f -iname "*.dll" -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh libs
 RES=$?
 
 count=0
+
+# iterate to resolve dependencies of dependencies
 while test 0 -lt ${RES}; do
     error "########################## iteration ${count} ##################"
     find "${DIR}" -type f -iname "*.dll" -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh ''

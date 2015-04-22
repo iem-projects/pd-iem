@@ -28,10 +28,6 @@ RELPATH=
 shift
 
 error "searching for embeddable libraries in $(pwd)"
-ls
-error "checking for FFTW-library"
-ls fftw
-
 
 count=0
 while [ 0 -lt $# ]; do
@@ -44,8 +40,7 @@ while [ 0 -lt $# ]; do
 	    error "skipping local copy of already existing library ${lib}"
 	else
 	    ## search for the library
-	    error "copying '$(pwd)/.../${lib}' to '${dir}'"
-	    find . -iname "${lib}"
+	    #error "copying '$(pwd)/.../${lib}' to '${dir}'"
 
 	    find . -iname "${lib}" -exec cp -v \{\} "${dir}" \;
 	    if [  -e "${dir}/${lib}" ]; then
