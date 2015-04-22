@@ -31,6 +31,7 @@ depends.posthook:
 install.posthook:
 	find $(DESTDIR) -name "*.la" -exec rm -v \{\} \;
 	find $(DESTDIR) -name "*.dll.a" -delete
+	find $(BUILDDIR)/pd -iname "*.dll" -delete
 	$(base_path)/kitchen/pasty-$(TARGETOS).sh $(DESTDIR)
 	cd $(dir $(DESTDIR)) && zip -r pd-iem_${TRAVIS_TAG}_$(TARGETOS).zip $(notdir $(DESTDIR))
 

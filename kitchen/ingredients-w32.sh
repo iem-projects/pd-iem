@@ -38,5 +38,5 @@ fi
 unzip -q pd-${PDVERSION}.msw.zip
 
 # delete dll's shipped with Pd
-find pd -iname "*.dll" -type f -delete
+#find pd -iname "*.dll" -type f -delete
 
