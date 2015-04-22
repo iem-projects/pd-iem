@@ -1,0 +1,36 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ############################### #
+# recipe for building zexy on W32 #
+# ############################### #
+LIBRARY=zexy
+
+BUILDDIR=$(LIBRARY)/build-w32
+DEPDIR=$(PWD)
+FFTWPATH=$(DEPDIR)/fftw
+SNDFILEPATH=$(DEPDIR)/sndfile
+GSLPATH=$(DEPDIR)/gsl
+
+export CC=i686-w64-mingw32-gcc
+export CPP=i686-w64-mingw32-gcc -E
+export LD=/usr/bin/i686-w64-mingw32-ld
+
+build:
+	mkdir -p $(BUILDDIR)
+	cd $(LIBRARY) && ./autogen.sh
+	cd $(BUILDDIR) && \
+	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) || cat config.log
+	make -C $(BUILDDIR)
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@17452 $(LIBRARY)
+
+install:
+	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
+
+clean:
+	-rm -rf $(LIBRARY)
+

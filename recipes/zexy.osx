@@ -1,0 +1,28 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ############################### #
+# recipe for building zexy on OSX #
+# ############################### #
+LIBRARY=zexy
+
+
+BUILDDIR=$(LIBRARY)/build-osx
+
+build:
+	cd $(LIBRARY) && ./autogen.sh
+	mkdir -p $(BUILDDIR)
+	cd $(BUILDDIR) && \
+	../configure --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
+	make -C $(BUILDDIR)
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@17452 $(LIBRARY)
+
+install:
+	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
+
+clean:
+	-rm -rf $(LIBRARY)
