@@ -35,7 +35,7 @@ while [ 0 -lt $# ]; do
 	    error "skipping local copy of already existing library ${lib}"
 	else
 	    ## search for the library
-	    find . -name "${lib}" -exec cp \{\} "${dir}" \;
+	    find . -iname "${lib}" -exec cp \{\} "${dir}" \;
 	    if [  -e "${dir}/${lib}" ]; then
 		error "installed '${lib}' into '${dir}'"
 		count=$((count+1))
