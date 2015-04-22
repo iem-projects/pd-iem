@@ -3,7 +3,8 @@
 all: clean depends build
 .PHONY: all depends build install clean
 
-RECIPES=iemmatrix iem_tab
+RECIPES=iemmatrix iem_tab list-abs zexy
+
 TARGETOS=osx
 export MACOSX_DEPLOYMENT_TARGET=10.5
 
