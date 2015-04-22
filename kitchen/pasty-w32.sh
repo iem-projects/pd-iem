@@ -1,5 +1,9 @@
 #!/bin/sh
 
+error() {
+  echo "$@" 1>&2
+}
+
 if [ $# -ne 1 ]; then
 	error "Usage: $0 external/dir/"
 	error "  i.e. $0 iemmatrix/"
