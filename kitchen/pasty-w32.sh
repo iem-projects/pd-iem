@@ -13,7 +13,7 @@ fi
 MAXITERATIONS=10
 DIR=$1
 
-find "${DIR}" -type f -name "*.dll" -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh libs
+find "${DIR}" -type f -iname "*.dll" -print0 | xargs -0 ${0%/*}/pastyroll-w32.sh libs
 RES=$?
 
 count=0
