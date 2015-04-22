@@ -21,7 +21,10 @@ if [ $# -lt 2 ]; then
     exit 0
 fi
 
-RELPATH=$1
+#RELPATH=$1
+## on w32, we just ignore the embed-path:
+## we only keep it as argument to make the API of the pastyroll-* scripts compatible
+RELPATH=
 shift
 
 error "searching for embeddable libraries in $(pwd)"
