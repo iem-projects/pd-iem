@@ -26,7 +26,7 @@ build:
 	make -C $(BUILDDIR)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@17452 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@17454 $(LIBRARY)
 
 install:
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
