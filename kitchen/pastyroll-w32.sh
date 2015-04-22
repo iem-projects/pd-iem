@@ -3,8 +3,9 @@
 # This script takes a binary file and an optional relative path (with resp. to the file),
 # and puts all non-standard dependencies of the binary into that relative path
 # and makes the binary use these.
-# originally written by  <hans@at.or.at>
-# hacked upon by <zmoelnig@iem.at>
+# based on pastyroll-osx.sh
+#  originally written by  <hans@at.or.at>
+#  hacked upon by <zmoelnig@iem.at>
 #
 
 error() {
@@ -13,9 +14,9 @@ error() {
 if [ $# -lt 2 ]; then
     error "Usage: $0 <embedpath> <binary> ..."
     error "   <embedpath> is ignored (things end up besides <binary>)"
-    error "  i.e. $0 libs tmp/foo.pd_darwin tmp/bar.d_fat"
-    error "         puts all dependencies of foo.pd_darwin bar.d_fat into tmp/libs"
-    error "  i.e. $0 "" tmp/libs/libgoo.dylib"
+    error "  i.e. $0 libs tmp/foo.exe tmp/bar.dll"
+    error "         puts all dependencies of foo.exe and bar.dll into tmp/"
+    error "  i.e. $0 "" tmp/libs/libgoo.dll"
     error "         puts all dependencies into tmp/libs"
     exit 0
 fi
