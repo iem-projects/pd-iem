@@ -29,11 +29,13 @@ ls
 error "checking for FFTW-library"
 ls fftw
 
+
 count=0
 while [ 0 -lt $# ]; do
     bin=$1
     shift
     dir=${bin%/*}/${RELPATH}
+    mkdir -p "${dir}"
     for lib in $(i686-w64-mingw32-objdump -x ${bin} | sed -n -e '/DLL Name:/p' | cut -d' ' -f3); do
 	if [  -e "${dir}/${lib}" ]; then
 	    error "skipping local copy of already existing library ${lib}"
