@@ -37,4 +37,6 @@ if [ ! -e pd-${PDVERSION}.msw.zip ]; then
 fi
 unzip -q pd-${PDVERSION}.msw.zip
 
+error "checking Pd/bin folder"
+ls pd/bin || true
 
