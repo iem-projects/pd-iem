@@ -1,0 +1,36 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ################################## #
+# recipe for building bsaylor on W32 #
+# ################################## #
+LIBRARY=bsaylor
+
+DEPDIR=$(PWD)
+FFTWPATH=$(DEPDIR)/fftw
+
+CC=i686-w64-mingw32-gcc
+CFLAGS="-I$(FFTWPATH)"
+LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base -L$(FFTWPATH)"
+
+build:
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=
+
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/bsaylor@17454 $(LIBRARY)
+#	fix library names
+	sed -e 's|\(-lfftw3\)$$|\1-3|'  -e 's|\(-lfftw3f\)$$|\1-3|' -i $(LIBRARY)/Makefile
+#	fetch dependency: fftw
+	-rm -rf "$(FFTWPATH)"
+	wget -c -O "$(DEPDIR)/fftw.zip" "ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll32.zip" && \
+		unzip -qd "$(FFTWPATH)" "$(DEPDIR)/fftw.zip"
+
+
+install:
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
+
+clean:
+	-rm -rf $(LIBRARY)
