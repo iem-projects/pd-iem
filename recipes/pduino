@@ -1,0 +1,21 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ############################
+# recipe for building list-abs
+# ############################
+LIBRARY=pduino
+
+build:
+	make -C $(LIBRARY)
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/pduino@17454 $(LIBRARY)
+
+install:
+	make -C $(LIBRARY) install pkglibdir=
+
+clean:
+	-rm -rf $(LIBRARY)
