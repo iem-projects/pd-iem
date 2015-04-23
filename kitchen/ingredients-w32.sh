@@ -37,6 +37,10 @@ if [ ! -e pd-${PDVERSION}.msw.zip ]; then
 fi
 unzip -q pd-${PDVERSION}.msw.zip
 
+## some Pd-extended externals prefer their headers in $(PD_PATH)/include/pd
+mkdir pd/include
+ln -s ../src pd/include/pd
+
 # delete dll's shipped with Pd
 #find pd -iname "*.dll" -type f -delete
 
