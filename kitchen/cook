@@ -4,6 +4,7 @@ all: clean depends build
 .PHONY: all depends build install clean
 
 
+#iemlib iem_ambi comport iemnet, mrpeach/net, mrpeach/osc, arduino, windowing, bsaylor
 RECIPES=iemmatrix iem_tab list-abs pduino zexy
 
 TARGETOS=osx
