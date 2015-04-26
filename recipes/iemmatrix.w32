@@ -7,6 +7,7 @@ all: clean depends build
 # recipe for building iemmatrix on W32 #
 # #################################### #
 LIBRARY=iemmatrix
+REV=17452
 
 BUILDDIR=$(LIBRARY)/build-w32
 DEPDIR=$(PWD)
@@ -34,7 +35,7 @@ depends:
 	mkdir -p "$(DEPDIR)"
 #	fetch Pd-library
 	-rm -rf $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@$(REV) $(LIBRARY)
 
 #	fetch dependency: fftw
 	-rm -rf "$(FFTWPATH)"

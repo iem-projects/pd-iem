@@ -7,12 +7,13 @@ all: clean depends build
 # recipe for building pduino on OSX #
 # ################################# #
 LIBRARY=pduino
+REV=17454
 
 build:
 	make -C $(LIBRARY)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/pduino@17454 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/pduino@$(REV) $(LIBRARY)
 
 install:
 	make -C $(LIBRARY) install pkglibdir=

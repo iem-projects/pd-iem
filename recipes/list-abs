@@ -7,12 +7,13 @@ all: clean depends build
 # recipe for building list-abs on OSX #
 # ################################### #
 LIBRARY=list-abs
+REV=17452
 
 build:
 	make -C $(LIBRARY)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/abstractions/footils/list-abs@17452 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/abstractions/footils/list-abs@$(REV) $(LIBRARY)
 
 install:
 	make -C $(LIBRARY) install pkglibdir=

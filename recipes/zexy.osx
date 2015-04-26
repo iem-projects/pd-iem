@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building zexy on OSX #
 # ############################### #
 LIBRARY=zexy
-
+REV=17454
 
 BUILDDIR=$(LIBRARY)/build-osx
 
@@ -19,7 +19,7 @@ build:
 	make -C $(BUILDDIR)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@17454 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@$(REV) $(LIBRARY)
 
 install:
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)

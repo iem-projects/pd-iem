@@ -7,6 +7,7 @@ all: clean depends build
 # recipe for building iem_tab on W32 #
 # ################################## #
 LIBRARY=iem_tab
+REV=17436
 
 CC=i686-w64-mingw32-gcc
 CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing"
@@ -18,7 +19,7 @@ build:
 	make -C $(LIBRARY)/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@$(REV) $(LIBRARY)
 
 install:
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
