@@ -1,0 +1,29 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ################################## #
+# recipe for building comport on W32 #
+# ################################## #
+LIBRARY=comport
+REV=17454
+
+DEPDIR=$(PWD)
+
+CC=i686-w64-mingw32-gcc
+CFLAGS=-I$(PDDIR)/src -g -O2 -mms-bitfields
+LDFLAGS=-shared $(CFLAGS) -L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base
+
+build:
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS=
+
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/comport/comport@$(REV) $(LIBRARY)
+
+install:
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS=
+
+clean:
+	-rm -rf $(LIBRARY)
