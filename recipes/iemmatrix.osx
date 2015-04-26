@@ -6,22 +6,23 @@ all: clean depends build
 # #################################### #
 # recipe for building iemmatrix on OSX #
 # #################################### #
+LIBRARY=iemmatrix
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
 
-BUILDDIR=iemmatrix/build-osx
+BUILDDIR=$(LIBRARY)/build-osx
 
 build:
-	cd iemmatrix && ./autogen.sh
+	cd $(LIBRARY) && ./autogen.sh
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && \
 	../configure --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
 	make -C $(BUILDDIR)
 
 depends:
-	-rm -rf iemmatrix
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 $(LIBRARY)
 	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 	brew install $(BREWURL)/gsl.rb $(BREWARGS)
 	brew install $(BREWURL)/libogg.rb $(BREWARGS)
@@ -30,8 +31,8 @@ depends:
 	brew install $(BREWURL)/libsndfile.rb $(BREWARGS)
 
 install:
-	make -C iemmatrix/build-osx install pkglibdir=iemmatrix
+	make -C $(LIBRARY)/build-osx install pkglibdir=$(LIBRARY)
 
 clean:
-	-rm -rf iemmatrix
+	-rm -rf $(LIBRARY)
 	-brew uninstall libsndfile flac libvorbis libogg gsl fftw --force

@@ -6,8 +6,9 @@ all: clean depends build
 # #################################### #
 # recipe for building iemmatrix on W32 #
 # #################################### #
+LIBRARY=iemmatrix
 
-BUILDDIR=iemmatrix/build-w32
+BUILDDIR=$(LIBRARY)/build-w32
 DEPDIR=$(PWD)
 FFTWPATH=$(DEPDIR)/fftw
 SNDFILEPATH=$(DEPDIR)/sndfile
@@ -22,7 +23,7 @@ export LD=/usr/bin/i686-w64-mingw32-ld
 
 build:
 	mkdir -p $(BUILDDIR)
-	cd iemmatrix && ./autogen.sh
+	cd $(LIBRARY) && ./autogen.sh
 	cd $(BUILDDIR) && \
 	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) CPPFLAGS="$(CPPFLAGS)" LDFLAGS="$(LDFLAGS)" || cat config.log
 	egrep "^CC" $(BUILDDIR)/Makefile
@@ -32,8 +33,8 @@ build:
 depends:
 	mkdir -p "$(DEPDIR)"
 #	fetch Pd-library
-	-rm -rf iemmatrix
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 iemmatrix
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@17452 $(LIBRARY)
 
 #	fetch dependency: fftw
 	-rm -rf "$(FFTWPATH)"
@@ -55,11 +56,8 @@ depends:
 	make -C gsl-1.16/build-w32 DESTDIR=$(GSLPATH) prefix="" install
 
 install:
-	make -C $(BUILDDIR) install pkglibdir=iemmatrix
-#	find $(FFTWPATH) -name "*.dll" -exec cp {} $(DESTDIR)/iemmatrix/ ;
-#	find $(SNDFILEPATH) -name "*.dll" -exec cp {} $(DESTDIR)/iemmatrix/ ;
-#	find $(GSLPATH) -name "*.dll" -exec cp {} $(DESTDIR)/iemmatrix/ ;
+	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
 
 clean:
-	-rm -rf iemmatrix
+	-rm -rf $(LIBRARY)
 

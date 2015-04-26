@@ -3,9 +3,10 @@
 all: clean depends build
 .PHONY: all depends build install clean
 
-# #####################################
-# recipe for building iem_tab on OSX
-# #####################################
+# ################################## #
+# recipe for building iem_tab on W32 #
+# ################################## #
+LIBRARY=iem_tab
 
 CC=i686-w64-mingw32-gcc
 CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing"
@@ -14,16 +15,16 @@ LDFLAGS="--shared -g -O2 -mms-bitfields"
 LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -Xlinker --out-implib -Xlinker iem_tab.dll.a"
 
 build:
-	make -C iem_tab/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
+	make -C $(LIBRARY)/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 iem_tab
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436 $(LIBRARY)
 
 install:
-	install -p -m 755 -d $(DESTDIR)/iem_tab/
-	install -p -m 644 iem_tab/*.dll $(DESTDIR)/iem_tab/
-	install -p -m 644 iem_tab/*.pd $(DESTDIR)/iem_tab/
-	install -p -m 644 iem_tab/*.txt $(DESTDIR)/iem_tab/
+	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.dll $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.pd $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.txt $(DESTDIR)/$(LIBRARY)/
 
 clean:
-	-rm -rf iem_tab
+	-rm -rf $(LIBRARY)
