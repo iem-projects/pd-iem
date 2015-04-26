@@ -5,7 +5,7 @@ all: clean depends build
 
 
 #iemlib iem_ambi comport iemnet mrpeach/net mrpeach/osc
-RECIPES=iemmatrix iem_ambi iem_tab bsaylor list-abs pduino windowing zexy
+RECIPES=comport iemmatrix iem_ambi iem_tab bsaylor list-abs pduino windowing zexy
 
 TARGETOS=osx
 export MACOSX_DEPLOYMENT_TARGET=10.5
