@@ -37,3 +37,6 @@ ln -s "${BUILDDIR}/Pd-${PDVERSION}-64bit.app/Contents/Resources/" pd
 # 1.X fix permissions
 chmod -R u+rwX .
 
+# 2. some Pd-extended externals prefer their headers in $(PD_PATH)/include/pdmkdir pd/include
+mkdir pd/include
+ln -s ../src pd/include/pd
