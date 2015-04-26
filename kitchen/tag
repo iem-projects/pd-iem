@@ -1,3 +1,13 @@
 #!/bin/sh
 
-git tag "v0.0.$(date +%Y%m%d.%H%M)"
+TAG=$1
+if [ "x${TAG}" = "x" ]; then
+ TAG="v0.0.$(date +%Y%m%d.%H%M)"
+fi
+
+git tag "${TAG}"
+
+echo "press [RETURN] to push ${TAG}" 1>&2
+echo "press [Ctrl]-C to stop" 1>&2
+read foo
+git push --tags
