@@ -1,0 +1,32 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ################################### #
+# recipe for building iem_ambi on W32 #
+# ################################### #
+LIBRARY=iem_ambi
+REV=17436
+
+CC=i686-w64-mingw32-gcc
+PD_CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing -I. -I$(PDDIR)/src $(CFLAGS)"
+PD_LIB="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -Xlinker --out-implib -Xlinker iem_ambi.dll.a"
+PD_LDFLAGS="--shared -g -O2 -mms-bitfields"
+
+build:
+	make -C $(LIBRARY)/src -f makefile EXT=dll CC=$(CC) LD=$(CC) PD_CFLAGS=$(PD_CFLAGS) PD_LDFLAGS=$(PD_LDFLAGS) PD_LIB=$(PD_LIB)
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_ambi@$(REV) $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/Make.include@$(REV)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/include@$(REV)
+
+install:
+	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/src/*.dll $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.pd $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.txt $(DESTDIR)/$(LIBRARY)/
+
+clean:
+	-rm -rf $(LIBRARY)
