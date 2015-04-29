@@ -10,7 +10,6 @@ LIBRARY=mrpeach-osc
 REV=17456
 
 DEPDIR=$(PWD)
-FFTWPATH=$(DEPDIR)/fftw
 
 CC=i686-w64-mingw32-gcc
 CFLAGS=
