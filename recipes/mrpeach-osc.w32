@@ -1,0 +1,31 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ###################################### #
+# recipe for building mrpeach/osc on W32 #
+# ###################################### #
+LIBRARY=mrpeach-osc
+REV=17456
+
+DEPDIR=$(PWD)
+FFTWPATH=$(DEPDIR)/fftw
+
+CC=i686-w64-mingw32-gcc
+CFLAGS=
+LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
+ALL_LIBS="-lwsock32"
+
+build:
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/mrpeach/osc@$(REV) $(LIBRARY)
+
+install:
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+
+clean:
+	-rm -rf $(LIBRARY)
