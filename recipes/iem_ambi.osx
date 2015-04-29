@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iem_ambi on OSX #
 # #####################################
 LIBRARY=iem_ambi
-REV=17436
+REV=17456
 
 ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-g -O2 -funroll-loops $(ARCH_FLAGS)"

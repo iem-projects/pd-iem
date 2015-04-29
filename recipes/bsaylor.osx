@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building bsaylor on OSX #
 # ################################## #
 LIBRARY=bsaylor
-REV=17454
+REV=17456
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)

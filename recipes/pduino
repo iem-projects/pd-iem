@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building pduino on OSX #
 # ################################# #
 LIBRARY=pduino
-REV=17454
+REV=17456
 
 build:
 	make -C $(LIBRARY)

@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iemmatrix on W32 #
 # #################################### #
 LIBRARY=iemmatrix
-REV=17452
+REV=17456
 
 BUILDDIR=$(LIBRARY)/build-w32
 DEPDIR=$(PWD)

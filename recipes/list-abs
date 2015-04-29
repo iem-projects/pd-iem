@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building list-abs on OSX #
 # ################################### #
 LIBRARY=list-abs
-REV=17452
+REV=17456
 
 build:
 	make -C $(LIBRARY)

@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building zexy on OSX #
 # ############################### #
 LIBRARY=zexy
-REV=17454
+REV=17456
 
 BUILDDIR=$(LIBRARY)/build-osx
 

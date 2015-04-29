@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iemmatrix on OSX #
 # #################################### #
 LIBRARY=iemmatrix
-REV=17452
+REV=17456
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)

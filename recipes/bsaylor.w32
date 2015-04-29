@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building bsaylor on W32 #
 # ################################## #
 LIBRARY=bsaylor
-REV=17454
+REV=17456
 
 DEPDIR=$(PWD)
 FFTWPATH=$(DEPDIR)/fftw

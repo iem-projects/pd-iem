@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building windowing on OSX #
 # #################################### #
 LIBRARY=windowing
-REV=17454
+REV=17456
 
 build:
 	make -C $(LIBRARY) FAT_FLAGS="-arch i386 -arch x86_64" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=

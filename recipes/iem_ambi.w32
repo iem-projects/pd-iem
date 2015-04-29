@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iem_ambi on W32 #
 # ################################### #
 LIBRARY=iem_ambi
-REV=17436
+REV=17456
 
 CC=i686-w64-mingw32-gcc
 PD_CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing -I. -I$(PDDIR)/src $(CFLAGS)"

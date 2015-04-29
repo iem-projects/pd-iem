@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iem_tab on W32 #
 # ################################## #
 LIBRARY=iem_tab
-REV=17436
+REV=17456
 
 CC=i686-w64-mingw32-gcc
 CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing"

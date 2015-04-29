@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building iem_tab on OSX
 # #####################################
 LIBRARY=iem_tab
-REV=17436
+REV=17456
 
 build:
 	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE)

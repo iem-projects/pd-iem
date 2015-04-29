@@ -7,7 +7,7 @@ all: clean depends build
 # recipe for building comport on W32 #
 # ################################## #
 LIBRARY=comport
-REV=17454
+REV=17456
 
 DEPDIR=$(PWD)
 
