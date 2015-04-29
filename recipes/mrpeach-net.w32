@@ -1,0 +1,34 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ###################################### #
+# recipe for building mrpeach/net on W32 #
+# ###################################### #
+LIBRARY=mrpeach-net
+REV=17456
+
+DEPDIR=$(PWD)
+
+#make UNAME=MINGW CC=i686-w64-mingw32-gcc PD_PATH=${PDDIR} CFLAGS= LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base -L${PDDIR}/bin" ALL_LIBS="-lwsock32 -lpthread
+CC=i686-w64-mingw32-gcc
+CFLAGS=
+LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
+ALL_LIBS="-lwsock32 -piphlpapi -lpthread"
+
+
+build:
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/mrpeach/net@$(REV) $(LIBRARY)
+#	with REV=17456 we need to patch the sources to include <ws2tcpip.h>
+	sed -e 's|^\(#include <winsock2.h>\)$|\1\n#include <ws2tcpip.h> /* for socklen_t */|' $(LIBRARY)/tcpserver.c
+
+install:
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+
+clean:
+	-rm -rf $(LIBRARY)

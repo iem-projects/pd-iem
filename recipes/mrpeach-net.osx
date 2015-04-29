@@ -1,0 +1,23 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ###################################### #
+# recipe for building mrpeach/net on OSX #
+# ###################################### #
+LIBRARY=mrpeach-net
+REV=17456
+
+build:
+	-rm -rf $(LIBRARY)
+	make -C $(LIBRARY) FAT_FLAGS="-arch i386 -arch x86_64" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/mrpeach/net@$(REV) $(LIBRARY)
+
+install:
+	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=
+
+clean:
+	-rm -rf $(LIBRARY)
