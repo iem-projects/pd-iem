@@ -4,8 +4,9 @@
 # recipe for building iemmatrix on OSX #
 # #################################### #
 LIBRARY=iemmatrix
-# include the 'iemlib' makefile-snippet besides this file
+# include the 'iemmatrix' makefile-snippet besides this file
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)

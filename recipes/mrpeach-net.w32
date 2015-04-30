@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ###################################### #
-# recipe for building mrpeach/net on W32 #
+# recipe for building mrpeach-net on W32 #
 # ###################################### #
 LIBRARY=mrpeach-net
-REV=17456
+# include the 'mrpeach-net' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 DEPDIR=$(PWD)
 
@@ -30,7 +29,7 @@ build:
 
 depends:
 	-rm -rf $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/mrpeach/net@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 #	with REV=17456 we need to patch the sources to include <ws2tcpip.h>
 	sed -e 's|^\(#include <winsock2.h>\)|\1\n#include <ws2tcpip.h> /* for socklen_t */|' -i' ' $(LIBRARY)/tcpserver.c
 

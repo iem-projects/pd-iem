@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ################################## #
 # recipe for building bsaylor on W32 #
 # ################################## #
 LIBRARY=bsaylor
-REV=17456
+# include the 'bsaylor' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 DEPDIR=$(PWD)
 FFTWPATH=$(DEPDIR)/fftw
@@ -21,7 +20,7 @@ build:
 
 depends:
 	-rm -rf $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/bsaylor@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 #	fix library names
 	sed -e 's|\(-lfftw3\)$$|\1-3|'  -e 's|\(-lfftw3f\)$$|\1-3|' -i $(LIBRARY)/Makefile
 #	fetch dependency: fftw

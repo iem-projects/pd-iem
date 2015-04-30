@@ -1,9 +1,8 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
 # ################################# #
-# recipe for building pduino on OSX #
+# recipe for building pduino on W32 #
 # ################################# #
 LIBRARY=pduino
 # include the 'pduino' makefile-snippet besides this file
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
-

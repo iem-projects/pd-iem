@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ################################## #
 # recipe for building bsaylor on OSX #
 # ################################## #
 LIBRARY=bsaylor
-REV=17456
+# include the 'bsaylor' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
@@ -18,7 +17,7 @@ build:
 	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/bsaylor@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
 	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=

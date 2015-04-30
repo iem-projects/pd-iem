@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
-# #####################################
+# ################################### #
 # recipe for building iem_ambi on OSX #
-# #####################################
+# ################################### #
 LIBRARY=iem_ambi
-REV=17456
+# include the 'iem_ambi' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-g -O2 -funroll-loops $(ARCH_FLAGS)"
@@ -18,9 +17,10 @@ build:
 
 depends:
 	-rm -rf $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_ambi@$(REV) $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/Make.include@$(REV)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/include@$(REV)
+	-rm -rf Make.include include
+	svn export -q $(SVNURL)/iem_ambi@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL)/include@$(REV)
+	svn export -q $(SVNURL)/Make.include@$(REV)
 install:
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/src/*.d_fat $(DESTDIR)/$(LIBRARY)/

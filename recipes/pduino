@@ -1,11 +1,11 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ################################# #
 # recipe for building pduino on OSX #
 # ################################# #
+all: clean depends build
+.PHONY: all depends build install clean
+
 LIBRARY=pduino
 REV=17456
 

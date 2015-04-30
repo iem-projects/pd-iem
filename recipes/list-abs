@@ -1,11 +1,11 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
+# ############################ #
+# recipe for building list-abs #
+# ############################ #
 all: clean depends build
 .PHONY: all depends build install clean
 
-# ################################### #
-# recipe for building list-abs on OSX #
-# ################################### #
 LIBRARY=list-abs
 REV=17456
 

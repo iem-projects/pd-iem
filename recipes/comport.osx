@@ -1,19 +1,18 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ################################## #
 # recipe for building comport on OSX #
 # ################################## #
 LIBRARY=comport
-REV=17456
+# include the 'comport' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 build:
 	make -C $(LIBRARY) FAT_FLAGS="-arch i386 -arch x86_64" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat PD_INCLUDE=$(PDDIR)/include pkglibdir=
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/comport@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
 	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=

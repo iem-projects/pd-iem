@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ############################### #
 # recipe for building zexy on OSX #
 # ############################### #
 LIBRARY=zexy
-REV=17456
+# include the 'zexy' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 BUILDDIR=$(LIBRARY)/build-osx
 
@@ -19,7 +18,7 @@ build:
 	make -C $(BUILDDIR)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/zexy@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)

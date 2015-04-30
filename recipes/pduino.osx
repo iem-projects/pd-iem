@@ -6,4 +6,3 @@
 LIBRARY=pduino
 # include the 'pduino' makefile-snippet besides this file
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
-

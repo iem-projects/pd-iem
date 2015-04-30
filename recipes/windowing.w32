@@ -1,13 +1,12 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # #################################### #
 # recipe for building windowing on W32 #
 # #################################### #
 LIBRARY=windowing
-REV=17456
+# include the 'windowing' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
 
 CC=i686-w64-mingw32-gcc
 LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base"
@@ -16,7 +15,7 @@ build:
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/windowing@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
