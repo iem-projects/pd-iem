@@ -12,13 +12,17 @@ REV=17456
 ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-DPD -fPIC -g -O2 -funroll-loops $(ARCH_FLAGS)"
 PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS)"
+CC=cc
+LD=cc
 
 build:
-	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS)
+	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS) CC=$(CC) LD=$(LD) TARGET=$(LIBRARY).d_fat
 
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@$(REV) $(LIBRARY)
+#	makefile has 'strip --strip-unneeded' hardcoded, which will produce an error on OSX
+	sed -e 's|strip --strip-unneeded|echo|' -i '' $(LIBRARY)/src/makefile_linux
 
 install:
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
@@ -27,4 +31,5 @@ install:
 	install -p -m 644 $(LIBRARY)/*.txt       $(DESTDIR)/$(LIBRARY)/
 
 clean:
-	-rm -rf $(LIBRARY)
+	-rm -f $(LIBRARY)/src/*.o
+	-rm -f $(LIBRARY)/src/*.pd_*
