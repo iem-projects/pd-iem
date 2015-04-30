@@ -1,13 +1,11 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
-all: clean depends build
-.PHONY: all depends build install clean
-
 # ################################# #
 # recipe for building iemlib on W32 #
 # ################################# #
 LIBRARY=iemlib
-REV=17456
+# include the 'iemlib' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 CC=i686-w64-mingw32-gcc
 INCLUDE="-I. -I$(PDDIR)/src"
@@ -19,11 +17,12 @@ LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll"
 build:
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS)
 
-depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iemlib@$(REV) $(LIBRARY)
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) install
 
 clean:
-	-rm -rf $(LIBRARY)
+	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) clean
