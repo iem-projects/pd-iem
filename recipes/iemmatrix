@@ -1,0 +1,11 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+# ################################ #
+# common vars for building iemlib  #
+# ################################ #
+
+all: clean depends build
+.PHONY: all depends build install clean
+
+REV=17459
+SVNURL=https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemmatrix@$(REV)
