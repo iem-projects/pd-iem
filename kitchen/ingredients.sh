@@ -2,6 +2,7 @@
 
 ## setup some environmental variables
 SCRIPTDIR=${0%/*}
+OS=$1
 
 ## some helper functions
 error() {
@@ -24,7 +25,7 @@ if [ ! -d "${BASEDIR}" ]; then error "no BASEDIR"; exit 1; fi
 if [ ! -d "${DESTDIR}" ]; then error "no DESTDIR"; exit 1; fi
 
 
-INSTALLSCRIPT="${0%.sh}-$(${SCRIPTDIR}/mangle_os.sh ${TRAVIS_OS_NAME}).sh"
+INSTALLSCRIPT="${0%.sh}-${OS}.sh"
 
 if [ -x "${INSTALLSCRIPT}" ]; then
  "${INSTALLSCRIPT}"
