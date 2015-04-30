@@ -1,0 +1,29 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ################################# #
+# recipe for building iemlib on W32 #
+# ################################# #
+LIBRARY=iemlib
+REV=17456
+
+CC=i686-w64-mingw32-gcc
+INCLUDE="-I. -I$(PDDIR)/src"
+CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -fomit-frame-pointer -fno-strict-aliasing"
+LDFLAGS="--shared -g -O2 -mms-bitfields"
+#LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
+LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll"
+
+build:
+	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS)
+
+depends: clean
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemlib@$(REV) $(LIBRARY)
+
+install:
+	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) install
+
+clean:
+	-rm -rf $(LIBRARY)
