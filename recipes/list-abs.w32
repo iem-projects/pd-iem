@@ -1,1 +1,9 @@
-list-abs
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+# #################################### #
+# recipe for building list-abs on OSX #
+# #################################### #
+LIBRARY=list-abs
+# include the 'list-abs' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+

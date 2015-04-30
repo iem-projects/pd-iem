@@ -1,1 +1,9 @@
-pduino
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+# ################################# #
+# recipe for building pduino on OSX #
+# ################################# #
+LIBRARY=pduino
+# include the 'pduino' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
