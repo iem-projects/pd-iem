@@ -14,11 +14,11 @@ REV=17456
 
 
 build:
-	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE)
+	make -C $(LIBRARY) PD_INCLUDE=$(PDINCLUDE)
 
 depends:
 	-rm -rf $(LIBRARY)
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemlib@$(REV) $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iemlib@$(REV) $(LIBRARY)
 
 install:
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
