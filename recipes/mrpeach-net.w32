@@ -22,7 +22,7 @@ ALL_LIBS="-lwsock32 -liphlpapi -llibwinpthread-1"
 
 
 build:
-	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) -k
 
 depends:
 	-rm -rf $(LIBRARY)
@@ -31,7 +31,7 @@ depends:
 	sed -e 's|^\(#include <winsock2.h>\)|\1\n#include <ws2tcpip.h> /* for socklen_t */|' -i' ' $(LIBRARY)/tcpserver.c
 
 install:
-	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) -k
 
 clean:
 	-rm -rf $(LIBRARY)
