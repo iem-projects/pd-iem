@@ -19,7 +19,8 @@ build:
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_ambi@$(REV) $(LIBRARY)
-
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/Make.include@$(REV)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/include@$(REV)
 install:
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/src/*.d_fat $(DESTDIR)/$(LIBRARY)/
