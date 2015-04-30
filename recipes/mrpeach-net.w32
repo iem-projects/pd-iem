@@ -15,7 +15,7 @@ DEPDIR=$(PWD)
 CC=i686-w64-mingw32-gcc
 CFLAGS=
 LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
-ALL_LIBS="-lwsock32 -piphlpapi -lpthread"
+ALL_LIBS="-lwsock32 -liphlpapi -lpthread"
 
 
 build:
