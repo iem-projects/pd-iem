@@ -9,8 +9,12 @@ all: clean depends build
 LIBRARY=iem_tab
 REV=17456
 
+ARCH_FLAGS=-arch i386 -arch x86_64
+CFLAGS="-DPD -fPIC -g -O2 -funroll-loops $(ARCH_FLAGS)"
+PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS)"
+
 build:
-	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE)
+	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS)
 
 depends:
 	-rm -rf $(LIBRARY)
