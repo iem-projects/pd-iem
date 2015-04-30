@@ -1,0 +1,30 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+all: clean depends build
+.PHONY: all depends build install clean
+
+# ################################# #
+# recipe for building iemlib on OSX #
+# ################################# #
+LIBRARY=iemlib
+REV=17456
+
+#cc -DPD -DUNIX -DHAVE_G_CANVAS_H  -fPIC -fno-stack-protector -W -Wno-parentheses -Wno-switch -Wno-unused -g -O2 -funroll-loops -arch i386 -arch x86_64 -I. -I../../include -I/Users/zmoelnig/src/pd-iem/build/pd/src -I../../../../pd/src -c -o iem_ambi.o iem_ambi.c
+#cc -Wl,-undefined -Wl,dynamic_lookup -arch i386 -arch x86_64 -o iem_ambi.d_fat *.o -lm -lc 
+
+
+build:
+	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE)
+
+depends:
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemlib@$(REV) $(LIBRARY)
+
+install:
+	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.pd_darwin $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.pd        $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.txt       $(DESTDIR)/$(LIBRARY)/
+
+clean:
+	-rm -rf $(LIBRARY)
