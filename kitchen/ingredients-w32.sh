@@ -42,5 +42,6 @@ mkdir pd/include
 ln -s ../src pd/include/pd
 
 # delete dll's shipped with Pd
+find pd -iname "msvcrt.dll" -exec mv '{}' '{}.bak'
 #find pd -iname "*.dll" -type f -delete
 
