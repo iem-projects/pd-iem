@@ -23,6 +23,10 @@ ALL_LIBS="-lwsock32 -liphlpapi -llibwinpthread-1"
 
 build:
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) -k
+## fake some externals that are known to not build on ubuntu-12.04LTS (travis-ci)
+	-touch $(LIBRARY)/tcpclient.dll
+	-touch $(LIBRARY)/tcpserver.dll
+	-touch $(LIBRARY)/udpsend~.dll
 
 depends:
 	-rm -rf $(LIBRARY)
