@@ -20,7 +20,7 @@ build:
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS)
 
 depends: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemlib@$(REV) $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iemlib@$(REV) $(LIBRARY)
 
 install:
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) install
