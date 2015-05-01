@@ -19,20 +19,20 @@ LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
 #ALL_LIBS="-lwsock32 -liphlpapi -lpthread"
 ALL_LIBS="-lwsock32 -liphlpapi -llibwinpthread-1"
 
+# not building all externals, since travis-ci currently lacks pthreads
+SOURCES="httpreceive.c httpreq.c tcpreceive.c tcpsend.c udpreceive~.c udpreceive.c udpsend.c udpsndrcv.c"
+
+
 
 build:
-	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) -k
-## fake some externals that are known to not build on ubuntu-12.04LTS (travis-ci)
-	-touch $(LIBRARY)/tcpclient.dll
-	-touch $(LIBRARY)/tcpserver.dll
-	-touch $(LIBRARY)/udpsend~.dll
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) SOURCES=$(SOURCES)
 
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
-	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) -k
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) SOURCES=$(SOURCES)
 
 clean:
 	-rm -rf $(LIBRARY)
