@@ -19,7 +19,7 @@ cd - >/dev/null
 PDDIR=$(pwd)/build/pd
 OS=
 if [ "x${TRAVIS_OS_NAME}" != "x" ]; then
- OS=$(${SCRIPTDIR}/kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
+ OS=$(${SCRIPTDIR}/closet/mangle_os.sh ${TRAVIS_OS_NAME})
 fi
 
 while getopts "s:p:" opt; do
