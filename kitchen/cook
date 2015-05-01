@@ -22,6 +22,12 @@ base_path=$(abspath $(lastword $(MAKEFILE_LIST))/../..)
 recipe_path=$(base_path)/recipes
 BUILDDIR=$(base_path)/build
 
+## we want to create a zip-file in $(DESTDIR)/..,
+## containing the last portion of $(DESTDIR)
+# the terminal subdirectory of DESTDIR (that gets zipped)
+ZIPINDIR=$(notdir $(DESTDIR))
+# the path containing the terminal subdirectory (where the zip will end up)
+ZIPOUTDIR=$(dir $(DESTDIR))
 
 %.recursive:
 	for i in $(TARGETS); do \
@@ -38,6 +44,6 @@ install.posthook:
 	find $(DESTDIR) -name "*.dll.a" -delete
 	find $(BUILDDIR)/pd -iname "*.dll" -delete
 	$(base_path)/kitchen/pasty-$(TARGETOS).sh $(DESTDIR)
-	cd $(dir $(DESTDIR)) && zip -r pd-iem_${TRAVIS_TAG}_$(TARGETOS).zip $(notdir $(DESTDIR))
+	cd $(ZIPOUTDIR) && zip -r pd-iem_${TRAVIS_TAG}_$(TARGETOS).zip $(ZIPINDIR)
 
 depends build install clean: % : %.recursive %.posthook
