@@ -5,16 +5,16 @@ os:
 - linux
 - osx
 before_install:
-- ./prepare.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
+- ./prepare.sh -s $(./closet/mangle_os.sh ${TRAVIS_OS_NAME})
 script:
-- ./build.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
+- ./build.sh -s $(./closet/mangle_os.sh ${TRAVIS_OS_NAME})
 after_success:
-- ./bundle.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
+- ./bundle.sh -s $(./closet/mangle_os.sh ${TRAVIS_OS_NAME})
 deploy:
   provider: releases
   api_key:
     secure: M3LgNguw7chsEhBJnrkGB+CB2EWRYVkdO0zhXbzlXFBaIgjGzK5E5JWxKC1NoGqm/EmX9wQQgEtDn70C04Q9qHYjzws3g4BDAT8GKeByVaZdooAGCdzNFLp6IfdaRGEgwhj5+4ayDhQ6ongrh7CupUmMvRAePMjF9xExuwFFFPQ=
-  file: dist/pd-iem_${TRAVIS_TAG}_$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}).zip
+  file: dist/pd-iem_${TRAVIS_TAG}_$(./closet/mangle_os.sh ${TRAVIS_OS_NAME}).zip
   on:
     repo: iem-projects/pd-iem
     tags: true
