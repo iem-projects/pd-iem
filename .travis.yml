@@ -5,12 +5,11 @@ os:
 - linux
 - osx
 before_install:
-- mkdir -p $(pwd)/build
-- ./kitchen/ingredients.sh $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
-- make -C build -f $(pwd)/kitchen/cook DESTDIR=$(pwd)/dist TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src depends
+- ./prepare.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
 script:
-- make -C build -f $(pwd)/kitchen/cook DESTDIR=$(pwd)/dist/pd-iem TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src build
-- make -C build -f $(pwd)/kitchen/cook DESTDIR=$(pwd)/dist/pd-iem TARGETOS=$(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME}) PDDIR=$(pwd)/build/pd/ PDINCLUDE=$(pwd)/build/pd/src install
+- ./build.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
+after_success:
+- ./bundle.sh -s $(./kitchen/mangle_os.sh ${TRAVIS_OS_NAME})
 deploy:
   provider: releases
   api_key:
