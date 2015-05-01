@@ -29,6 +29,8 @@ ZIPINDIR=$(notdir $(DESTDIR))
 # the path containing the terminal subdirectory (where the zip will end up)
 ZIPOUTDIR=$(dir $(DESTDIR))
 
+ZIPFILE=pd-iem_$(TRAVIS_TAG)_$(TARGETOS).zip
+
 %.recursive:
 	for i in $(TARGETS); do \
 		test -e $(recipe_path)/$$i && \
@@ -44,6 +46,6 @@ install.posthook:
 	find $(DESTDIR) -name "*.dll.a" -delete
 	find $(BUILDDIR)/pd -iname "*.dll" -delete
 	$(base_path)/kitchen/pasty-$(TARGETOS).sh $(DESTDIR)
-	cd $(ZIPOUTDIR) && zip -r pd-iem_${TRAVIS_TAG}_$(TARGETOS).zip $(ZIPINDIR)
+	cd $(ZIPOUTDIR) && zip -r $(ZIPFILE) $(ZIPINDIR) && ls -lh $(ZIPFILE)
 
 depends build install clean: % : %.recursive %.posthook
