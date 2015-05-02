@@ -10,9 +10,10 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
+ARCH_FLAGS=-arch i386 -arch x86_64
 
 build:
-	make -C $(LIBRARY) FAT_FLAGS="-arch i386 -arch x86_64" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
+	make -C $(LIBRARY) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
 	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 
 depends:
