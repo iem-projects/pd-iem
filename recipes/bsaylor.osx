@@ -14,11 +14,12 @@ ARCH_FLAGS=-arch i386 -arch x86_64
 
 build:
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
-	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
+# partconv~ and pvoc~ require fftw
+	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 
 install:
 	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=
