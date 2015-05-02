@@ -22,7 +22,7 @@ depends:
 	brew install $(BREWURL)/fftw.rb $(BREWARGS)
 
 install:
-	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=
+	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir= install
 
 clean:
 	-rm -rf $(LIBRARY)
