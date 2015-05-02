@@ -13,9 +13,10 @@ CFLAGS="-DPD -fPIC -g -O2 -funroll-loops $(ARCH_FLAGS)"
 PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS)"
 CC=cc
 LD=cc
+EXT=d_fat
 
 build:
-	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS) CC=$(CC) LD=$(LD) TARGET=$(LIBRARY).d_fat
+	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS) CC=$(CC) LD=$(LD) TARGET=$(LIBRARY).$(EXT)
 
 depends:
 	-rm -rf $(LIBRARY)
@@ -24,10 +25,10 @@ depends:
 	sed -e 's|strip --strip-unneeded|echo|' -i '' $(LIBRARY)/src/makefile_linux
 
 install:
-	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
-	install -p -m 644 $(LIBRARY)/*.pd_darwin $(DESTDIR)/$(LIBRARY)/
-	install -p -m 644 $(LIBRARY)/*.pd        $(DESTDIR)/$(LIBRARY)/
-	install -p -m 644 $(LIBRARY)/*.txt       $(DESTDIR)/$(LIBRARY)/
+	install -p -m 755 -d                  $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.$(EXT) $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.pd     $(DESTDIR)/$(LIBRARY)/
+	install -p -m 644 $(LIBRARY)/*.txt    $(DESTDIR)/$(LIBRARY)/
 
 clean:
 	-rm -f $(LIBRARY)/src/*.o
