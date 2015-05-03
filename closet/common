@@ -65,7 +65,6 @@ fi
 if [ -z "${BUILDDIR}" ]; then BUILDDIR=build; fi
 BUILDDIR=$(absdir "${BUILDDIR}")
 if [ -z "${PDDIR}" ]; then PDDIR=${BUILDDIR}/pd; fi
-PDDIR=$(absdir "${PDDIR}")
 if [ -z "${DESTDIR}" ]; then DESTDIR=dist; fi
 DESTDIR=$(absdir "${DESTDIR}")
 
