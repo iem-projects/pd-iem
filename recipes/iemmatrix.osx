@@ -10,6 +10,7 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
+EXT=d_fat
 
 BUILDDIR=$(LIBRARY)/build-osx
 
@@ -17,7 +18,7 @@ build:
 	cd $(LIBRARY) && ./autogen.sh
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && \
-	../configure --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
+	../configure --with-extension=$(EXT) --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
 	make -C $(BUILDDIR)
 
 depends:
