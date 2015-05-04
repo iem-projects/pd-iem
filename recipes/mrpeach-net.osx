@@ -8,9 +8,11 @@ LIBRARY=mrpeach-net
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 
+ARCH_FLAGS=-arch i386 -arch x86_64
+
 build:
 	-rm -rf $(LIBRARY)
-	make -C $(LIBRARY) FAT_FLAGS="-arch i386 -arch x86_64" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
+	make -C $(LIBRARY) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat pkglibdir=
 
 depends: clean
 	svn export -q $(SVNURL) $(LIBRARY)
