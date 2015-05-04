@@ -14,7 +14,7 @@ ensuredir() {
 }
 
 ## if SUDO is not set (via env), set it to 'sudo'
-SUDO={SUDO-sudo}
+SUDO=${SUDO-sudo}
 
 
 ## the actual work
