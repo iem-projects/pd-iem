@@ -66,3 +66,15 @@ To avoid confusion we suggest installing the externals in the *global installati
 At the moment send an email to the [pd-list mailing list](http://lists.puredata.info/listinfo/pd-list) for questions,
 later a bug tracker might be used.
 
+
+
+## FAQ
+
+#### Q: I extracted the ZIP-file, but Pd still cannot find the new objects
+
+- The target directory should contain the *contents* of the `pd-iem` directory.
+E.g. you should have folder named `iemlib`, but **not** a folder named `pd-iem` at your destination.
+
+- If nothing helps, start Pd with `-verbose` (in the *Path* preferences, check the `verbose` toggle, and restart Pd):
+this will make Pd print out all the places where it looks for the library.
+Compare that list to the directory you put your externals into.
