@@ -41,8 +41,10 @@ fi
 unzip -qo pd-${PDVERSION}.msw.zip
 
 ## some Pd-extended externals prefer their headers in $(PD_PATH)/include/pd
-mkdir pd/include
-ln -s ../src pd/include/pd
+mkdir -p pd/include
+if [ ! -e pd/include/pd ]; then
+ ln -s ../src pd/include/pd
+fi
 
 # delete dll's shipped with Pd
 find pd -iname "msvcrt.dll" -exec mv '{}' '{}.bak' ';'
