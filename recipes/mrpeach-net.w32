@@ -6,6 +6,7 @@
 LIBRARY=mrpeach-net
 # include the 'mrpeach-net' makefile-snippet besides this file
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+-include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/../build/config.mk
 
 
 DEPDIR=$(PWD)
@@ -13,26 +14,31 @@ DEPDIR=$(PWD)
 #make UNAME=MINGW CC=i686-w64-mingw32-gcc PD_PATH=${PDDIR} CFLAGS= LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base -L${PDDIR}/bin" ALL_LIBS="-lwsock32 -lpthread
 CC=i686-w64-mingw32-gcc
 CFLAGS=
-LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
-#LDFLAGS="$(LDFLAGS) -Wl,--verbose"
+LDFLAGS=-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base
+#LDFLAGS=$(LDFLAGS) -Wl,--verbose
 
-#ALL_LIBS="-lwsock32 -liphlpapi -lpthread"
-ALL_LIBS="-lwsock32 -liphlpapi -llibwinpthread-1"
+#ALL_LIBS=-lwsock32 -liphlpapi -lpthread
+ALL_LIBS=-lwsock32 -liphlpapi
 
 # not building all externals, since travis-ci currently lacks pthreads
-SOURCES="httpreceive.c httpreq.c tcpreceive.c tcpsend.c udpreceive~.c udpreceive.c udpsend.c udpsndrcv.c"
+SOURCES=httpreceive.c httpreq.c tcpreceive.c tcpsend.c udpreceive~.c udpreceive.c udpsend.c udpsndrcv.c
+
+ifdef HAVE_PTHREADS
+SOURCES+=tcpclient.c tcpserver.c udpsend~.c
+ALL_LIBS+=-llibwinpthread-1
+endif
 
 
 
 build:
-	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) SOURCES=$(SOURCES)
+	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH="$(PDDIR)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" ALL_LIBS="$(ALL_LIBS)" SOURCES="$(SOURCES)"
 
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
 install:
-	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS) SOURCES=$(SOURCES)
+	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH="$(PDDIR)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" ALL_LIBS="$(ALL_LIBS)" SOURCES="$(SOURCES)"
 
 clean:
 	-rm -rf $(LIBRARY)
