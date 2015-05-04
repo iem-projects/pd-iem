@@ -18,7 +18,7 @@ Simply run the `ALL.sh` script in the root of *pd-iem*.
 It should do all things necessary for you,
 but you need to tell it for which Operating System (currently either `osx` or `w32`) you want to build.
 
-    ./ALL -s w32
+    ./ALL.sh -s w32
 
 If all goes well, you should find a zip-file in the (probably created) `dist/` folder,
 containing all built externals and abstractions.
