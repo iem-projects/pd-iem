@@ -153,7 +153,7 @@ This means that it is crucial, to have the DLLs of all dependencies available in
 
 Nothing special, but we are cross-compiling the externals on linux uwing MinGW-64.
 
-Also, I would like to use [ravis-ci](https://travis-ci.org/iem-projects/pd-iem/) for automated building,
+Also, I would like to use [travis-ci](https://travis-ci.org/iem-projects/pd-iem/) for automated building,
 which currently provides `Ubuntu 12.04 "Precise Penguin"` build machines.
 These lack a few features, namely `pthread` support when cross-compiling.
 Hopefully they will upgrade their build-machines to something more up-to-date soon.
