@@ -13,6 +13,9 @@ ensuredir() {
    mkdir -p "$1" 2>/dev/null && cd "$1" && pwd
 }
 
+## if SUDO is not set (via env), set it to 'sudo'
+SUDO={SUDO-sudo}
+
 
 ## the actual work
 # 0. setup all paths
@@ -22,12 +25,12 @@ if [ ! -d "${BUILDDIR}" ]; then error "no BUILDDIR"; exit 1; fi
 # 1. install dependencies
 cd "${BUILDDIR}"
 # 1.1 install MinGW64 toolchain
-sudo apt-get update
-sudo apt-get install binutils-mingw-w64-i686 gcc-mingw-w64-i686
-sudo apt-get install mingw-w64-i686-dev || sudo apt-get install mingw-w64-dev
-sudo apt-get install mingw-w64-tools
-#sudo apt-get install mingw-w64
-#sudo apt-get install g++-mingw-w64-i686 wine
+${SUDO} apt-get update
+${SUDO} apt-get install binutils-mingw-w64-i686 gcc-mingw-w64-i686
+${SUDO} apt-get install mingw-w64-i686-dev || ${SUDO} apt-get install mingw-w64-dev
+${SUDO} apt-get install mingw-w64-tools
+#${SUDO} apt-get install mingw-w64
+#${SUDO} apt-get install g++-mingw-w64-i686 wine
 
 
 
