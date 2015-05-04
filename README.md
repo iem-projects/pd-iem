@@ -35,7 +35,7 @@ the individual packages as listed below.
 ## Installation
 
 Unpack the downloaded file and copy the contents to one of the places proposed
-at [How do I install externals and help files](http://puredata.info/docs/faq/how-do-i-install-externals-and-help-files/)
+at [How do I install externals and help files](http://puredata.info/docs/faq/how-do-i-install-externals-and-help-files/) (or see below).
 
 
 ### Linux Debian and Debian derivates:
@@ -52,6 +52,14 @@ at [How do I install externals and help files](http://puredata.info/docs/faq/how
 
 - per user installation path: `%AppData%\Pd`
 - global installation path: `%CommonProgramFiles%\Pd`
+
+#### on W32 search paths
+
+Until very recently (`Pd<=0.46-6`!), the default W32 search paths were unfortunately slightly broken and used
+- global installation path: `%ProgramFiles%\Common Files\Pd` (this expands to the same value as `%AppData%\Pd` on *Windows-XP* and *Windows7*, though the behaviour might change in the future)
+- per user installation path: `%UserProfile%\Application Data\Pd` (this expands to the same value as `%CommonProgramFiles%\Pd` on *Windows-XP*; but **not** and *Windows7*)
+
+To avoid confusion we suggest installing the externals in the *global installation path* for now (until `Pd>=0.46-7` is released).
 
 ## Troubleshouting
 
