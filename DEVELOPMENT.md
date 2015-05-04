@@ -125,7 +125,7 @@ The exact location of this installation is given in the following variables:
 
 - `PD_INCLUDE`: path to the Pd header files  (`$(PDDIR)/src`)
 
-For compatibility with Pd-extended Makefiles, the Pd-headers are *also* available in `$(PDDIR)/include/pd`.
+For compatibility with Makefiles expecting a Pd-extended directory layout, the Pd-headers are *also* available in `$(PDDIR)/include/pd`.
 
 #### config.mk
 
