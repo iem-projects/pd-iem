@@ -38,7 +38,7 @@ ${SUDO} apt-get install mingw-w64-tools
 if [ ! -e pd-${PDVERSION}.msw.zip ]; then
  wget http://msp.ucsd.edu/Software/pd-${PDVERSION}.msw.zip
 fi
-unzip -q pd-${PDVERSION}.msw.zip
+unzip -qo pd-${PDVERSION}.msw.zip
 
 ## some Pd-extended externals prefer their headers in $(PD_PATH)/include/pd
 mkdir pd/include
