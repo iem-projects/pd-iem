@@ -11,9 +11,7 @@ getlibraries() {
         lib=${lib##*/}
         lib=${lib%.*}
         echo ${lib}
-    done | sort | while read l; do
-		      /bin/echo -n "  - ${l}\\\\n"
-		  done
+    done | sort
 }
 
 getpdversion() {
@@ -46,7 +44,11 @@ getbuildsys() {
 
 VERSION=$(getrevision)
 PDVERSION=$(getpdversion)
-LIBRARIES=$(getlibraries)
+LIBRARIES=""
+for l in $(getlibraries); do
+    LIBRARIES="${LIBRARIES}\\
+  - ${l}"
+done
 TIMESTAMP=$(LANG=C date)
 BUILDHOST=$(hostname)
 BUILDSYS=$(getbuildsys)
