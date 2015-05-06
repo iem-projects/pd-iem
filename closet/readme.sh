@@ -12,7 +12,7 @@ getlibraries() {
         lib=${lib%.*}
         echo ${lib}
     done | sort | while read l; do
-		      echo -n "  - ${l}\\\\n"
+		      /bin/echo -n "  - ${l}\\\\n"
 		  done
 }
 
