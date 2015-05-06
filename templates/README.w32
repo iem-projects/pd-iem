@@ -1,0 +1,64 @@
+Pd IEM Distribution @VERSION@ for W32
+===
+
+The Pure Data IEM Distribution is a binary collection of core Pd libraries.
+
+
+## included libraries
+
+@LIBRARIES@
+
+
+## Installation
+
+Unpack the ZIP-file and copy the contents of the `pd-iem` directory into a place where Pd can find them.
+Make sure to copy the content, not the directory itself.
+After installation you should have something like `INSTALLATIONPATH\iemlib` rather than `INSTALLATIONPATH\pd-iem\iemlib`
+(where INSTALLATIONPATH is the path you chose as target directory)
+
+
+### Site-wide installation
+
+If you want to make the pd-iem libraries available to all users on your machine running
+whatever version or flavour of Pd, use the following as INSTALLATIONPATH:
+
+ - `%CommonProgramFiles%\Pd`
+
+The actual value of `%CommonProgramFiles%` depends on your Windows version and language.
+Just type `%CommonProgramFiles%` in the Windows Explorer address bar and hit [enter].
+This will take you to the right path. You might need to create the `Pd` subfolder.
+
+
+### Per-User installation
+
+If you want to make the pd-iem libraries available only to yourself for
+whatever version or flavour of Pd, use the following as INSTALLATIONPATH:
+
+ - `%AppData%\Pd`
+
+Again, the actual value of `%AppData%` depends on your Windows version and language.
+(See above.)
+
+Due to a subtle bug in Pd<=0.46-6, this will not work on Windows7 or higher (WindowsXP is fine though).
+Either upgrade to a newer version of Pd or use another method.
+
+### Pd-specific installation
+
+If you want to make the pd-iem libraries available only to a specific installation of Pd
+(and to all users using this specific Pd-installation), put the Pd-iem libraries into
+the `extra\` folder within your Pd-installation.
+
+E.g. if you installed Pd into `C:\Program Files\Pd\` (with the actual executable being
+`C:\Program Files\Pd\bin\pd.exe`), put them into `C:\Program Files\Pd\extra\`
+(e.g. `C:\Program Files\Pd\extra\iemlib\`)
+
+
+## Further information
+
+http://puredata.info/docs/faq/how-do-i-install-externals-and-help-files/
+
+
+## Build information
+
+date of assembly: @TIMESTAMP@
+build host: @BUILDHOST@ running @BUILDARCH@
