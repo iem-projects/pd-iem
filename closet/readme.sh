@@ -54,7 +54,7 @@ BUILDSYS=$(getbuildsys)
 echo iem : ${VERSION}
 echo OS  : ${OS}
 echo Pd  : ${PDVERSION}
-echo libs: $(LIBRARIES)
+echo libs: ${LIBRARIES}
 echo host: ${BUILDHOST}
 echo sys : ${BUILDSYS}
 
