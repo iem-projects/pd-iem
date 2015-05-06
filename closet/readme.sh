@@ -33,11 +33,11 @@ getrevision() {
 
 getbuildsys() {
     if which lsb_release >/dev/null; then
-	echo $(lsb_release -sd) $(uname -m)
+	echo $(lsb_release -sd) [$(uname -m)]
 	return
     fi
     if which sw_vers >/dev/null; then
-	echo "OSX-"$(sw_vers -productVersion | awk -F '.' '{print $1 "." $2}') $(uname -m)
+	echo "OSX-"$(sw_vers -productVersion | awk -F '.' '{print $1 "." $2}') [$(uname -m)]
     fi
 }
 
