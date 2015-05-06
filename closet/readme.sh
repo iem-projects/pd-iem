@@ -11,7 +11,9 @@ getlibraries() {
         lib=${lib##*/}
         lib=${lib%.*}
         echo ${lib}
-    done | sort
+    done | sort | while read l; do
+		      echo -n "  - ${l}\\\\n"
+		  done
 }
 
 getpdversion() {
@@ -31,17 +33,36 @@ getrevision() {
     echo "${REV}"
 }
 
+getbuildsys() {
+    if which lsb_release >/dev/null; then
+	echo $(lsb_release -sd) $(uname -m)
+	return
+    fi
+    if which sw_vers >/dev/null; then
+	echo "OSX-"$(sw_vers -productVersion | awk -F '.' '{print $1 "." $2}') $(uname -m)
+    fi
+}
 
-PDIEMVERSION=$(getrevision)
+
+VERSION=$(getrevision)
 PDVERSION=$(getpdversion)
 LIBRARIES=$(getlibraries)
 TIMESTAMP=$(LANG=C date)
 BUILDHOST=$(hostname)
-BUILDSYS=?
+BUILDSYS=$(getbuildsys)
 
-echo iem : ${PDIEMVERSION}
+echo iem : ${VERSION}
 echo OS  : ${OS}
 echo Pd  : ${PDVERSION}
-echo libs: ${LIBRARIES}
+echo libs: $(LIBRARIES)
 echo host: ${BUILDHOST}
 echo sys : ${BUILDSYS}
+
+cat "${SCRIPTDIR}/../templates/README.${OS}" | sed \
+  -e "s|@LIBRARIES@|${LIBRARIES}|g" \
+  -e "s|@VERSION@|${VERSION}|g" \
+  -e "s|@OS@|${OS}|g" \
+  -e "s|@PDVERSION@|${PDVERSION}|g" \
+  -e "s|@BUILDHOST@|${BUILDHOST}|g" \
+  -e "s|@BUILDSYS@|${BUILDSYS}|g" \
+  -e "s|@TIMESTAMP@|${TIMESTAMP}|g"
