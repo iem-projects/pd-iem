@@ -62,4 +62,4 @@ http://puredata.info/docs/faq/how-do-i-install-externals-and-help-files/
 
 date of assembly: @TIMESTAMP@
 based on Pd: @PDVERSION@
-build host: @BUILDHOST@ running @BUILDSYS@
+build host: @BUILDHOST@ running "@BUILDSYS@"
