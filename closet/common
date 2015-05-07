@@ -4,10 +4,14 @@ error() {
   echo "$@" 1>&2
 }
 usage() {
- error "usage: $0 [-s <OperatingSystem>] [-p <PdDir>]"
- error "     <OperatingSystem>: either 'osx' or 'w32'"
- error "     <PdDir>: installation path of Pd-Resources"
- error "	default: fetches an separate Pd"
+ error "usage: $0 -s <OperatingSystem> [-p <PdDir>]"
+ error "     -s <OperatingSystem>: either 'osx' or 'w32'"
+ error "     -p <PdDir>: installation path of Pd-Resources"
+ error "	default: fetches a local copy of Pd"
+ error "     -b <BuildDir>: where to build Pd-iem"
+ error "	default: $(pwd)/build"
+ error "     -d <DestDir>: where to bundle Pd-iem"
+ error "	default: $(pwd)/dist"
  exit $1
 }
 
