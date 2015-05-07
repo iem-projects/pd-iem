@@ -33,14 +33,35 @@ getrevision() {
 
 getbuildsys() {
     if which lsb_release >/dev/null; then
-	echo $(lsb_release -sd) [$(uname -m)]
+	echo "$(lsb_release -sd) [$(uname -m)]"
 	return
     fi
     if which sw_vers >/dev/null; then
-	echo "OSX-"$(sw_vers -productVersion | awk -F '.' '{print $1 "." $2}') [$(uname -m)]
+	echo "OSX-$(sw_vers -productVersion) [$(uname -m)]"
     fi
 }
 
+fill_template() {
+    sed \
+	-e "s|@LIBRARIES@|${LIBRARIES}|g" \
+	-e "s|@VERSION@|${VERSION}|g" \
+	-e "s|@OS@|${TARGETOS}|g" \
+	-e "s|@PDVERSION@|${PDVERSION}|g" \
+	-e "s|@BUILDHOST@|${BUILDHOST}|g" \
+	-e "s|@BUILDSYS@|${BUILDSYS}|g" \
+	-e "s|@TIMESTAMP@|${TIMESTAMP}|g"
+}
+
+assemble() {
+    while [ $# -gt 0 ]; do
+	cat "$1"
+	shift
+	if [ $# -gt 0 ]; then
+	    echo
+	    echo
+	fi
+    done
+}
 
 VERSION=$(getrevision)
 PDVERSION=$(getpdversion)
@@ -52,6 +73,8 @@ done
 TIMESTAMP=$(LANG=C date)
 BUILDHOST=$(hostname)
 BUILDSYS=$(getbuildsys)
+TEMPLATEDIR="${SCRIPTDIR}/../templates"
+TARGETOS=$(echo ${OS} | tr '[a-z]' '[A-Z]')
 
 echo iem : ${VERSION}
 echo OS  : ${OS}
@@ -60,11 +83,5 @@ echo libs: ${LIBRARIES}
 echo host: ${BUILDHOST}
 echo sys : ${BUILDSYS}
 
-cat "${SCRIPTDIR}/../templates/README.${OS}" | sed \
-  -e "s|@LIBRARIES@|${LIBRARIES}|g" \
-  -e "s|@VERSION@|${VERSION}|g" \
-  -e "s|@OS@|${OS}|g" \
-  -e "s|@PDVERSION@|${PDVERSION}|g" \
-  -e "s|@BUILDHOST@|${BUILDHOST}|g" \
-  -e "s|@BUILDSYS@|${BUILDSYS}|g" \
-  -e "s|@TIMESTAMP@|${TIMESTAMP}|g"
+assemble "${TEMPLATEDIR}/README.top.md" "${TEMPLATEDIR}/README.${OS}" "${TEMPLATEDIR}/README.bottom.md" \
+    | fill_template
