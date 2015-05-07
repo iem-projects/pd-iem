@@ -73,6 +73,17 @@ if [ "x${OS}" = "xw32" ]; then
     }
 fi
 
+TIMESTAMP=$(LANG=C date)
+BUILDHOST=$(hostname)
+BUILDSYS=$(getbuildsys)
+TARGETOS=$(echo ${OS} | tr '[a-z]' '[A-Z]')
+TEMPLATEDIR="${SCRIPTDIR}/../templates"
+
+error "OS  : ${OS} [ ${TARGETOS} ]"
+error "host: ${BUILDHOST}"
+error "sys : ${BUILDSYS}"
+error "pdir: ${PDDIR}"
+
 VERSION=$(getrevision)
 PDVERSION=$(getpdversion)
 LIBRARIES=""
@@ -80,18 +91,11 @@ for l in $(getlibraries); do
     LIBRARIES="${LIBRARIES}\\
   - ${l}"
 done
-TIMESTAMP=$(LANG=C date)
-BUILDHOST=$(hostname)
-BUILDSYS=$(getbuildsys)
-TEMPLATEDIR="${SCRIPTDIR}/../templates"
-TARGETOS=$(echo ${OS} | tr '[a-z]' '[A-Z]')
 
-error iem : ${VERSION}
-error OS  : ${OS}
-error Pd  : ${PDVERSION}
-error libs: ${LIBRARIES}
-error host: ${BUILDHOST}
-error sys : ${BUILDSYS}
+error "iem : ${VERSION}"
+error "Pd  : ${PDVERSION}"
+error "libs: ${LIBRARIES}"
+
 
 assemble "${TEMPLATEDIR}/README.top.md" "${TEMPLATEDIR}/README.${OS}" "${TEMPLATEDIR}/README.bottom.md" \
     | fill_template | fix_crlf
