@@ -17,6 +17,8 @@ TARGETS=$(RECIPES:=.$(TARGETOS))
 
 DESTDIR=/tmp/pd-iem
 PDINCLUDE=/usr/include/pd
+BREW?=brew
+SUDO?=sudo
 
 base_path=$(abspath $(lastword $(MAKEFILE_LIST))/../..)
 
@@ -36,7 +38,7 @@ ZIPFILE=pd-iem_$(TRAVIS_TAG)_$(TARGETOS).zip
 	for i in $(TARGETS); do \
 		test -e $(recipe_path)/$$i && \
 		mkdir -p $(BUILDDIR)/$$i && \
-		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i DESTDIR=$(DESTDIR)/ $(@:.recursive=); \
+		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i DESTDIR=$(DESTDIR)/ BREW=$(BREW) SUDO=$(SUDO) $(@:.recursive=); \
 	done
 %.posthook:
 	@echo "$(@:.post=) DONE"
