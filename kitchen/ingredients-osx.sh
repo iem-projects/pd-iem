@@ -22,10 +22,16 @@ if [ ! -d "${BUILDDIR}" ]; then error "no BUILDDIR"; exit 1; fi
 # 1. install dependencies
 cd "${BUILDDIR}"
 # 1.1 update brew
-brew update
-brew install pkg-config gettext
-brew link gettext --force
-brew install coreutils
+## if BREW is not set (via env), set it to 'brew'
+BREW=${BREW-brew}
+error "using ${BREW} for 'brew'"
+error "	you can override this by setting the BREW environmental variable"
+
+${BREW} update
+${BREW} install pkg-config
+#${BREW} install gettext
+#${BREW} link gettext --force
+${BREW} install coreutils
 
 # 1.2 install Pd
 if [ ! -e pd-${PDVERSION}-64bit.mac.tar.gz ]; then
