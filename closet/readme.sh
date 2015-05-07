@@ -68,8 +68,7 @@ fix_crlf() {
 }
 if [ "x${OS}" = "xw32" ]; then
     fix_crlf() {
-	set -f; IFS='
-'; printf '%s\r\n' $(cat)
+	awk '{printf "%s\r\n", $0}'
     }
 fi
 
