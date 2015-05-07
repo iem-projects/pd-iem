@@ -63,6 +63,16 @@ assemble() {
     done
 }
 
+fix_crlf() {
+  cat
+}
+if [ "x${OS}" = "xw32" ]; then
+    fix_crlf() {
+	set -f; IFS='
+'; printf '%s\r\n' $(cat)
+    }
+fi
+
 VERSION=$(getrevision)
 PDVERSION=$(getpdversion)
 LIBRARIES=""
@@ -84,4 +94,4 @@ error host: ${BUILDHOST}
 error sys : ${BUILDSYS}
 
 assemble "${TEMPLATEDIR}/README.top.md" "${TEMPLATEDIR}/README.${OS}" "${TEMPLATEDIR}/README.bottom.md" \
-    | fill_template
+    | fill_template | fix_crlf
