@@ -15,9 +15,11 @@ RUNDIR=$(pwd)
 SCRIPTDIR=${0%/*}/
 cd "${SCRIPTDIR}"
 SCRIPTDIR=$(pwd)
+cd "${SCRIPTDIR}/../build"
+BUILDDIR=$(pwd)
 cd "${RUNDIR}"
 
-PDDIR=${RUNDIR}/build/pd
+PDDIR=${BUILDDIR}/pd
 OS=
 if [ "x${TRAVIS_OS_NAME}" != "x" ]; then
  OS=$(${SCRIPTDIR}/closet/mangle_os.sh ${TRAVIS_OS_NAME})
