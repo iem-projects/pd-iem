@@ -1,14 +1,3 @@
-Pd IEM Distribution @VERSION@ for OSX
-===
-
-The Pure Data IEM Distribution is a binary collection of core Pd libraries.
-
-
-## included libraries
-
-@LIBRARIES@
-
-
 ## Installation
 
 Unpack the ZIP-file and copy the contents of the `pd-iem` directory into a place where Pd can find them.
@@ -40,13 +29,6 @@ so the actual path could be `/Users/username/Library/Pd`).
 You might need to create both the `Library` folder and the `Pd` subfolder.
 
 
-## Further information
+### Further information
 
 http://puredata.info/docs/faq/how-do-i-install-externals-and-help-files/
-
-
-## Build information
-
-date of assembly: @TIMESTAMP@
-based on Pd: @PDVERSION@
-build host: @BUILDHOST@ running "@BUILDSYS@"
