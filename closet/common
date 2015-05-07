@@ -11,12 +11,18 @@ usage() {
  exit $1
 }
 
+absdir() {
+  mkdir -p "$1" && cd "$1" && pwd
+}
+
 RUNDIR=$(pwd)
-SCRIPTDIR=${0%/*}/
-cd "${SCRIPTDIR}"
-SCRIPTDIR=$(pwd)
-cd "${SCRIPTDIR}/../build"
-BUILDDIR=$(pwd)
+SCRIPTDIR=$(absdir ${0%/*}/)
+
+if [ -z "${BUILDDIR}" ]; then BUILDDIR=build; fi
+BUILDDIR=$(absdir "${BUILDDIR}")
+if [ -z "${DESTDIR}" ]; then DESTDIR=dist; fi
+DESTDIR=$(absdir "${DESTDIR}")
+
 cd "${RUNDIR}"
 
 PDDIR=${BUILDDIR}/pd
