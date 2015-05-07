@@ -1,7 +1,8 @@
 #!/bin/sh
+ARGS=$@
 
 . ${0%/*}/closet/common
 
-${SCRIPTDIR}/prepare.sh $@ && \
-${SCRIPTDIR}/build.sh   $@ && \
-${SCRIPTDIR}/bundle.sh  $@
+${SCRIPTDIR}/prepare.sh ${ARGS} && \
+${SCRIPTDIR}/build.sh   ${ARGS} && \
+${SCRIPTDIR}/bundle.sh  ${ARGS}
