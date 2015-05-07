@@ -36,7 +36,7 @@ ZIPFILE=pd-iem_$(TRAVIS_TAG)_$(TARGETOS).zip
 
 %.recursive:
 	for i in $(TARGETS); do \
-		test -e $(recipe_path)/$$i && \
+		test ! -e $(recipe_path)/$$i || \
 		mkdir -p $(BUILDDIR)/$$i && \
 		make -C $(BUILDDIR)/$$i -f $(recipe_path)/$$i DESTDIR=$(DESTDIR)/ BREW=$(BREW) SUDO=$(SUDO) $(@:.recursive=); \
 	done
