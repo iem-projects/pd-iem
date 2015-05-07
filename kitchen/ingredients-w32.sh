@@ -15,6 +15,8 @@ ensuredir() {
 
 ## if SUDO is not set (via env), set it to 'sudo'
 SUDO=${SUDO-sudo}
+error "using ${SUDO} for 'sudo'"
+error "	you can override this by setting the SUDO environmental variable"
 
 
 ## the actual work
