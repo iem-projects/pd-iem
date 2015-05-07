@@ -18,26 +18,27 @@ absdir() {
 RUNDIR=$(pwd)
 SCRIPTDIR=$(absdir ${0%/*}/)
 
-if [ -z "${BUILDDIR}" ]; then BUILDDIR=build; fi
-BUILDDIR=$(absdir "${BUILDDIR}")
-if [ -z "${DESTDIR}" ]; then DESTDIR=dist; fi
-DESTDIR=$(absdir "${DESTDIR}")
-
-cd "${RUNDIR}"
-
-PDDIR=${BUILDDIR}/pd
+BUILDDIR=
+DESTDIR=
+PDDIR=
 OS=
 if [ "x${TRAVIS_OS_NAME}" != "x" ]; then
  OS=$(${SCRIPTDIR}/closet/mangle_os.sh ${TRAVIS_OS_NAME})
 fi
 
-while getopts "s:p:" opt; do
+while getopts "s:p:b:d:" opt; do
  case $opt in
    s)
      OS=$OPTARG
      ;;
    p)
      PDDIR=$OPTARG
+     ;;
+   b)
+     BUILDDIR=$OPTARG
+     ;;
+   d)
+     DESTDIR=$OPTARG
      ;;
    h|\?)
      usage 0
@@ -56,5 +57,12 @@ shift $(( ${OPTIND} - 1 ))
 if [ "x${OS}" = "x" ]; then
   usage 1
 fi
+
+if [ -z "${BUILDDIR}" ]; then BUILDDIR=build; fi
+BUILDDIR=$(absdir "${BUILDDIR}")
+if [ -z "${PDDIR}" ]; then PDDIR=${BUILDDIR}/pd; fi
+PDDIR=$(absdir "${PDDIR}")
+if [ -z "${DESTDIR}" ]; then DESTDIR=dist; fi
+DESTDIR=$(absdir "${DESTDIR}")
 
 
