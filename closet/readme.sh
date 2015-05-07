@@ -76,12 +76,12 @@ BUILDSYS=$(getbuildsys)
 TEMPLATEDIR="${SCRIPTDIR}/../templates"
 TARGETOS=$(echo ${OS} | tr '[a-z]' '[A-Z]')
 
-echo iem : ${VERSION}
-echo OS  : ${OS}
-echo Pd  : ${PDVERSION}
-echo libs: ${LIBRARIES}
-echo host: ${BUILDHOST}
-echo sys : ${BUILDSYS}
+error iem : ${VERSION}
+error OS  : ${OS}
+error Pd  : ${PDVERSION}
+error libs: ${LIBRARIES}
+error host: ${BUILDHOST}
+error sys : ${BUILDSYS}
 
 assemble "${TEMPLATEDIR}/README.top.md" "${TEMPLATEDIR}/README.${OS}" "${TEMPLATEDIR}/README.bottom.md" \
     | fill_template
