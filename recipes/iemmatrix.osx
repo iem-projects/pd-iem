@@ -7,7 +7,7 @@ LIBRARY=iemmatrix
 # include the 'iemmatrix' makefile-snippet besides this file
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
-
+BREW=brew
 BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
 EXT=d_fat
@@ -24,16 +24,16 @@ build:
 depends:
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
-	brew install $(BREWURL)/fftw.rb $(BREWARGS)
-	brew install $(BREWURL)/gsl.rb $(BREWARGS)
-	brew install $(BREWURL)/libogg.rb $(BREWARGS)
-	brew install $(BREWURL)/libvorbis.rb $(BREWARGS)
-	brew install $(BREWURL)/flac.rb $(BREWARGS)
-	brew install $(BREWURL)/libsndfile.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/fftw.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/gsl.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/libogg.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/libvorbis.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/flac.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/libsndfile.rb $(BREWARGS)
 
 install:
 	make -C $(LIBRARY)/build-osx install pkglibdir=$(LIBRARY)
 
 clean:
 	-rm -rf $(LIBRARY)
-	-brew uninstall libsndfile flac libvorbis libogg gsl fftw --force
+	-$(BREW) uninstall libsndfile flac libvorbis libogg gsl fftw --force

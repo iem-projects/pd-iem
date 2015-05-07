@@ -8,7 +8,8 @@ LIBRARY=bsaylor
 include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 
-BREWURL=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/
+BREW=brew
+BREWURL=https://raw.githubusercontent.com/iem-projects/home$(BREW)-legacy/master/
 BREWARGS=--universal --osxversion=$(MACOSX_DEPLOYMENT_TARGET)
 ARCH_FLAGS=-arch i386 -arch x86_64
 OPT_CFLAGS=-g -ftree-vectorize -fast
@@ -20,7 +21,7 @@ depends:
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 # partconv~ and pvoc~ require fftw
-	brew install $(BREWURL)/fftw.rb $(BREWARGS)
+	$(BREW) install $(BREWURL)/fftw.rb $(BREWARGS)
 
 install:
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= install
