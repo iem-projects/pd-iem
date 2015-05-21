@@ -22,7 +22,7 @@ the individual packages as listed below.
 - iem_ambi
 - iem_tab
 - comport
-- iemnet, net (use optional one of ths)
+- iemnet, net (choose one of these)
 - osc
 - zexy
 - arduino
