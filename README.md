@@ -41,7 +41,7 @@ at [How do I install externals and help files](http://puredata.info/docs/faq/how
 ### Linux Debian and Debian derivates:
 
     aptitude install puredata
-    aptitude install pd-iemlib pd-iemmatrix pd-iemambi pd-iemnet pd-comport pd-iemnet pd-net pd-osc pd-zexy pd-arduino pd-list-abs pd-bsaylor
+    aptitude install pd-iemlib pd-iemmatrix pd-iemambi pd-comport pd-iemnet pd-net pd-osc pd-zexy pd-arduino pd-list-abs pd-bsaylor
 
 ### Mac OS-X
 
