@@ -10,7 +10,7 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-DPD -fPIC -g -O2 -funroll-loops -Wno-unused-parameter $(ARCH_FLAGS) -Wparentheses"
-PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS)"
+PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS) -bundle"
 CC=cc
 LD=cc
 STRIP=echo

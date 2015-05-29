@@ -10,7 +10,7 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-g -O2 -funroll-loops $(ARCH_FLAGS)"
-PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS)"
+PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS) -bundle"
 
 build:
 	make -C $(LIBRARY)/src PDSOURCE=$(PDINCLUDE) CFLAGS=$(CFLAGS) PD_LDFLAGS=$(PD_LDFLAGS) EXT=d_fat LD=cc STRIP=echo
