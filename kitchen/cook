@@ -47,6 +47,7 @@ depends.posthook:
 install.posthook:
 	find $(DESTDIR) -name "*.la" -exec rm -v \{\} \;
 	find $(DESTDIR) -name "*.dll.a" -delete
+	find $(DESTDIR) -name "*.dll" -or -name "*.d_fat" -exec chmod a-x \{\} \;
 	find $(BUILDDIR)/pd -iname "*.dll" -delete
 	$(base_path)/kitchen/pasty-$(TARGETOS).sh $(DESTDIR)
 	cd $(ZIPOUTDIR) && zip -r $(ZIPFILE) $(ZIPINDIR) && ls -lh $(ZIPFILE)
