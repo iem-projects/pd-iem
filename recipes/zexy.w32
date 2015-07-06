@@ -10,9 +10,6 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 
 BUILDDIR=$(LIBRARY)/build-w32
 DEPDIR=$(PWD)
-FFTWPATH=$(DEPDIR)/fftw
-SNDFILEPATH=$(DEPDIR)/sndfile
-GSLPATH=$(DEPDIR)/gsl
 
 export CC=i686-w64-mingw32-gcc
 export CPP=i686-w64-mingw32-gcc -E
