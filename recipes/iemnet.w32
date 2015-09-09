@@ -18,7 +18,7 @@ build:
 		CC=$(CC) \
 		PD_PATH=$(PDDIR) \
 		LDFLAGS=$(LDFLAGS) \
-		ALL_LIBS=
+		LIBS=-lpthread
 
 depends: clean
 	svn export -q $(SVNURL) $(LIBRARY)
@@ -30,7 +30,7 @@ install:
 		CC=$(CC) \
 		PD_PATH=$(PDDIR) \
 		LDFLAGS=$(LDFLAGS) \
-		ALL_LIBS=
+		LIBS=-lpthread
 
 clean:
 	-rm -rf $(LIBRARY)
