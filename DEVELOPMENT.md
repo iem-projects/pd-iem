@@ -23,6 +23,13 @@ but you need to tell it for which Operating System (currently either `osx` or `w
 If all goes well, you should find a zip-file in the (probably created) `dist/` folder,
 containing all built externals and abstractions.
 
+#### Building only a few select libraries
+You can pass a colon-delimited list of recipes (as found in the `recipes/` folder (without the OS-suffix)) via the `-r` flag.
+
+The following will build only the `comport` and the `pduino` libraries for `w32`:
+
+    ./ALL.sh -s w32 -r comport:pduino
+
 ### Step by step
 
 There are three main steps to build `pd-iem`:
