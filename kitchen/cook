@@ -1,13 +1,24 @@
 #!/usr/bin/make
 # -*- mode: Makefile -*-
 all: clean depends build
-.PHONY: all depends build install clean
+.PHONY: all depends build install clean recipes
 
+RECEIPTS=iemlib comport iemmatrix iem_ambi iem_tab
+RECEIPTS+=iemnet
+RECEIPTS+=bsaylor list-abs mrpeach-net mrpeach-osc pduino windowing
+RECEIPTS+=zexy
 
-RECIPES=iemlib comport iemmatrix iem_ambi iem_tab
-RECIPES+=iemnet
-RECIPES+=bsaylor list-abs mrpeach-net mrpeach-osc pduino windowing
-RECIPES+=zexy
+## per default use the list of recipes given above
+## however, if the user has specified some recipes manually, use those
+RECIPES=$(RECEIPTS)
+## unless the manually specified recipes are empty
+ifeq "x$(RECIPES)" "x"
+override RECIPES=$(RECEIPTS)
+endif
+## or unless the manually specified recipes are 'ALL'
+ifeq "x$(RECIPES)" "xALL"
+override RECIPES=$(RECEIPTS)
+endif
 
 TARGETOS=osx
 export MACOSX_DEPLOYMENT_TARGET=10.5
@@ -53,3 +64,9 @@ install.posthook:
 	cd $(ZIPOUTDIR) && zip -r $(ZIPFILE) $(ZIPINDIR) && ls -lh $(ZIPFILE)
 
 depends build install clean: % : %.recursive %.posthook
+
+
+recipes:
+	@echo RECEIPTS: $(RECEIPTS)
+	@echo RECIPES: $(RECIPES)
+	@echo TARGETS: $(TARGETS)
