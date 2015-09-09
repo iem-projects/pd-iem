@@ -61,10 +61,10 @@ Until very recently (`Pd<=0.46-6`!), the default W32 search paths were unfortuna
 
 To avoid confusion we suggest installing the externals in the *global installation path* for now (until `Pd>=0.46-7` is released).
 
-## Troubleshouting
+## Troubleshooting
 
-At the moment send an email to the [pd-list mailing list](http://lists.puredata.info/listinfo/pd-list) for questions,
-later a bug tracker might be used.
+At the moment, send an email to the [pd-list mailing list](http://lists.puredata.info/listinfo/pd-list) for questions,
+later a [bug tracker](https://github.com/iem-projects/pd-iem) might be used.
 
 
 
