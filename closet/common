@@ -12,6 +12,8 @@ usage() {
  error "	default: $(pwd)/build"
  error "     -d <DestDir>: where to bundle Pd-iem"
  error "	default: $(pwd)/dist"
+ error "     -r <library1:library2>: which libraries to build"
+ error "	default: ALL"
  exit $1
 }
 
@@ -29,8 +31,9 @@ OS=
 if [ "x${TRAVIS_OS_NAME}" != "x" ]; then
  OS=$(${SCRIPTDIR}/closet/mangle_os.sh ${TRAVIS_OS_NAME})
 fi
+RECIPES=ALL
 
-while getopts "s:p:b:d:" opt; do
+while getopts "s:p:b:d:r:" opt; do
  case $opt in
    s)
      OS=$OPTARG
@@ -43,6 +46,9 @@ while getopts "s:p:b:d:" opt; do
      ;;
    d)
      DESTDIR=$OPTARG
+     ;;
+   r)
+     RECIPES=$(echo ${OPTARG} | tr ':' ' ')
      ;;
    h|\?)
      usage 0
