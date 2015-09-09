@@ -5,8 +5,8 @@ all: clean depends build
 
 
 RECIPES=iemlib comport iemmatrix iem_ambi iem_tab
+RECIPES+=iemnet
 RECIPES+=bsaylor list-abs mrpeach-net mrpeach-osc pduino windowing
-#RECIPES+=iemnet
 RECIPES+=zexy
 
 TARGETOS=osx
