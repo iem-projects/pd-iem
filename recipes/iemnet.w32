@@ -1,0 +1,36 @@
+#!/usr/bin/make
+# -*- mode: Makefile -*-
+# ################################# #
+# recipe for building iemnet on W32 #
+# ################################# #
+LIBRARY=iemnet
+# include the 'iemnet' makefile-snippet besides this file
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
+
+
+CC=i686-w64-mingw32-gcc
+LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base"
+
+build:
+	make -C $(LIBRARY) \
+		pkglibdir= \
+		UNAME=MINGW \
+		CC=$(CC) \
+		PD_PATH=$(PDDIR) \
+		LDFLAGS=$(LDFLAGS) \
+		ALL_LIBS=
+
+depends: clean
+	svn export -q $(SVNURL) $(LIBRARY)
+
+install:
+	make install -C $(LIBRARY) \
+		pkglibdir= \
+		UNAME=MINGW \
+		CC=$(CC) \
+		PD_PATH=$(PDDIR) \
+		LDFLAGS=$(LDFLAGS) \
+		ALL_LIBS=
+
+clean:
+	-rm -rf $(LIBRARY)
