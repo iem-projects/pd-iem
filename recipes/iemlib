@@ -4,6 +4,8 @@
 # common vars for building iemlib #
 # ############################### #
 
+## TODO: switch to git.iem.at:pd/iemlib
+
 all: clean depends build
 .PHONY: all depends build install clean
 

@@ -4,6 +4,8 @@
 # common vars for building iem_tab #
 # ################################ #
 
+## TODO: switch to git.iem.at:pd/iem_tab
+
 all: clean depends build
 .PHONY: all fetch depends build install clean
 

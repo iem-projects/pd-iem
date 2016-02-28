@@ -4,6 +4,8 @@
 # common vars for building iemmatrix #
 # ################################## #
 
+## TODO: switch to git.iem.at:pd/iemmatrix
+
 all: clean depends build
 .PHONY: all depends build install clean
 

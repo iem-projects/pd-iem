@@ -4,6 +4,8 @@
 # common vars for building iemnet #
 # ############################### #
 
+## TODO: switch to git.iem.at:pd/iemnet
+
 all: clean depends build
 .PHONY: all depends build install clean
 
