@@ -77,9 +77,9 @@ writing these rules?
      upstream=https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@17436
      depends=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/fftw.rb
      depends+=https://raw.githubusercontent.com/iem-projects/homebrew-legacy/master/gsl.rb
-     build:
+     build::
 	make -C src PD_INCLUCE=${PDINCLUDE}
-     install:
+     install::
         install -p -m 755 $(DESTDIR)/iem_tab/
 	install -p -m 644 *.pd_darwin $(DESTDIR)/iem_tab/
 	install -p -m 644 *.pd $(DESTDIR)/iem_tab/
