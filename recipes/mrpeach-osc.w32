@@ -15,15 +15,15 @@ CFLAGS=
 LDFLAGS="-L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
 ALL_LIBS="-lwsock32"
 
-build:
+build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=$(ALL_LIBS)
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)

@@ -21,7 +21,7 @@ export CC=i686-w64-mingw32-gcc
 export CPP=i686-w64-mingw32-gcc -E
 export LD=/usr/bin/i686-w64-mingw32-ld
 
-build:
+build::
 	mkdir -p $(BUILDDIR)
 	cd $(LIBRARY) && ./autogen.sh
 	cd $(BUILDDIR) && \
@@ -30,7 +30,7 @@ build:
 	grep "w64" $(BUILDDIR)/Makefile
 	make -C $(BUILDDIR)
 
-depends:
+depends::
 	mkdir -p "$(DEPDIR)"
 #	fetch Pd-library
 	-rm -rf $(LIBRARY)
@@ -55,9 +55,9 @@ depends:
 	make -C gsl-1.16/build-w32
 	make -C gsl-1.16/build-w32 DESTDIR=$(GSLPATH) prefix="" install
 
-install:
+install::
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
 

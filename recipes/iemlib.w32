@@ -15,15 +15,15 @@ LDFLAGS="--shared -g -O2 -mms-bitfields"
 #LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base"
 LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll"
 
-build:
+build::
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS)
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) install
 
-clean:
+clean::
 	make -C $(LIBRARY) INSTALL_DOC=$(LIBRARY) INSTALL_BIN=$(LIBRARY) EXT=dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) PD_CFLAGS=$(CFLAGS) PD_LDFLAGS=$(LDFLAGS) PD_LIB=$(LIBS) clean

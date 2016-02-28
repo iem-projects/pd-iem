@@ -13,22 +13,22 @@ PD_CFLAGS="-DMSW -DPD -g -O2 -mms-bitfields -DDLL_EXPORT -DPIC  -funroll-loops -
 PD_LIB="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -Xlinker --out-implib -Xlinker iem_ambi.dll.a"
 PD_LDFLAGS="--shared -g -O2 -mms-bitfields"
 
-build:
+build::
 	make -C $(LIBRARY)/src -f makefile EXT=dll CC=$(CC) LD=$(CC) PD_CFLAGS=$(PD_CFLAGS) PD_LDFLAGS=$(PD_LDFLAGS) PD_LIB=$(PD_LIB)
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	-rm -rf Make.include include
 	svn export -q $(SVNURL)/iem_ambi@$(REV) $(LIBRARY)
 	svn export -q $(SVNURL)/include@$(REV)
 	svn export -q $(SVNURL)/Make.include@$(REV)
 
-install:
+install::
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/src/*.dll $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.pd $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.txt $(DESTDIR)/$(LIBRARY)/
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
 	-rm -rf Make.include include

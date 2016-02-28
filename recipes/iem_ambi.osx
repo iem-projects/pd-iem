@@ -12,21 +12,21 @@ ARCH_FLAGS=-arch i386 -arch x86_64
 CFLAGS="-g -O2 -funroll-loops $(ARCH_FLAGS)"
 PD_LDFLAGS="-Wl,-undefined -Wl,dynamic_lookup $(ARCH_FLAGS) -bundle"
 
-build:
+build::
 	make -C $(LIBRARY)/src PDSOURCE=$(PDINCLUDE) CFLAGS=$(CFLAGS) PD_LDFLAGS=$(PD_LDFLAGS) EXT=d_fat LD=cc STRIP=echo
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	-rm -rf Make.include include
 	svn export -q $(SVNURL)/iem_ambi@$(REV) $(LIBRARY)
 	svn export -q $(SVNURL)/include@$(REV)
 	svn export -q $(SVNURL)/Make.include@$(REV)
-install:
+install::
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/src/*.d_fat $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.pd        $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.txt       $(DESTDIR)/$(LIBRARY)/
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
 	-rm -rf Make.include include

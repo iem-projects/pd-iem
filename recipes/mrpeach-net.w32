@@ -30,15 +30,15 @@ endif
 
 
 
-build:
+build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH="$(PDDIR)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" ALL_LIBS="$(ALL_LIBS)" SOURCES="$(SOURCES)"
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH="$(PDDIR)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" ALL_LIBS="$(ALL_LIBS)" SOURCES="$(SOURCES)"
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)

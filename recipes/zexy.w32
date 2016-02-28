@@ -15,19 +15,19 @@ export CC=i686-w64-mingw32-gcc
 export CPP=i686-w64-mingw32-gcc -E
 export LD=/usr/bin/i686-w64-mingw32-ld
 
-build:
+build::
 	mkdir -p $(BUILDDIR)
 	cd $(LIBRARY) && ./autogen.sh
 	cd $(BUILDDIR) && \
 	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) || cat config.log
 	make -C $(BUILDDIR)
 
-depends: clean
+depends:: clean
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
 

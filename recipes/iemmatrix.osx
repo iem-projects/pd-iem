@@ -14,14 +14,14 @@ EXT=d_fat
 
 BUILDDIR=$(LIBRARY)/build-osx
 
-build:
+build::
 	cd $(LIBRARY) && ./autogen.sh
 	mkdir -p $(BUILDDIR)
 	cd $(BUILDDIR) && \
 	../configure --with-extension=$(EXT) --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
 	make -C $(BUILDDIR)
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 	$(BREW) install $(BREWURL)/fftw.rb $(BREWARGS)
@@ -31,9 +31,9 @@ depends:
 	$(BREW) install $(BREWURL)/flac.rb $(BREWARGS)
 	$(BREW) install $(BREWURL)/libsndfile.rb $(BREWARGS)
 
-install:
+install::
 	make -C $(LIBRARY)/build-osx install pkglibdir=$(LIBRARY)
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
 	-$(BREW) uninstall libsndfile flac libvorbis libogg gsl fftw --force

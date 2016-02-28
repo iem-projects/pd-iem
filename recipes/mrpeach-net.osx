@@ -14,15 +14,15 @@ OPT_CFLAGS=-g -ftree-vectorize -fast
 SOURCES=httpreceive.c httpreq.c tcpreceive.c tcpsend.c udpreceive~.c udpreceive.c udpsend.c udpsndrcv.c
 SOURCES+=tcpclient.c tcpserver.c udpsend~.c
 
-build:
+build::
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= SOURCES="$(SOURCES)"
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make install -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= SOURCES="$(SOURCES)"
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)

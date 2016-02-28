@@ -14,17 +14,17 @@ INCLUDE="-I. -I$(PDDIR)/src"
 LDFLAGS="--shared -g -O2 -mms-bitfields"
 LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -Xlinker --out-implib -Xlinker iem_tab.dll.a"
 
-build:
+build::
 	make -C $(LIBRARY)/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
 
-depends: clean
+depends:: clean
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.dll $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.pd $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.txt $(DESTDIR)/$(LIBRARY)/
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)

@@ -11,7 +11,7 @@ include $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/$(LIBRARY)
 CC=i686-w64-mingw32-gcc
 LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base"
 
-build:
+build::
 	make -C $(LIBRARY) \
 		pkglibdir= \
 		UNAME=MINGW \
@@ -20,10 +20,10 @@ build:
 		LDFLAGS=$(LDFLAGS) \
 		LIBS=-lpthread
 
-depends: clean
+depends:: clean
 	svn export -q $(SVNURL) $(LIBRARY)
 
-install:
+install::
 	make install -C $(LIBRARY) \
 		pkglibdir= \
 		UNAME=MINGW \
@@ -32,5 +32,5 @@ install:
 		LDFLAGS=$(LDFLAGS) \
 		LIBS=-lpthread
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)

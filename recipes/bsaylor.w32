@@ -15,10 +15,10 @@ CC=i686-w64-mingw32-gcc
 CFLAGS="-I$(FFTWPATH)"
 LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base -L$(FFTWPATH)"
 
-build:
+build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=
 
-depends:
+depends::
 	-rm -rf $(LIBRARY)
 	svn export -q $(SVNURL) $(LIBRARY)
 #	fix library names
@@ -29,8 +29,8 @@ depends:
 		unzip -qd "$(FFTWPATH)" "$(DEPDIR)/fftw.zip"
 
 
-install:
+install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
 
-clean:
+clean::
 	-rm -rf $(LIBRARY)
