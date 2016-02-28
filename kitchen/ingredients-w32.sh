@@ -28,11 +28,11 @@ if [ ! -d "${BUILDDIR}" ]; then error "no BUILDDIR"; exit 1; fi
 cd "${BUILDDIR}"
 # 1.1 install MinGW64 toolchain
 ${SUDO} apt-get update
-${SUDO} apt-get install binutils-mingw-w64-i686 gcc-mingw-w64-i686
-${SUDO} apt-get install mingw-w64-i686-dev || ${SUDO} apt-get install mingw-w64-dev
-${SUDO} apt-get install mingw-w64-tools
-#${SUDO} apt-get install mingw-w64
-#${SUDO} apt-get install g++-mingw-w64-i686 wine
+${SUDO} apt-get install -y binutils-mingw-w64-i686 gcc-mingw-w64-i686
+${SUDO} apt-get install -y mingw-w64-i686-dev || ${SUDO} apt-get install -y mingw-w64-dev
+${SUDO} apt-get install -y mingw-w64-tools
+#${SUDO} apt-get install -y mingw-w64
+#${SUDO} apt-get install -y g++-mingw-w64-i686 wine
 
 
 
