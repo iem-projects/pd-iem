@@ -1,6 +1,7 @@
 language: c
-sudo: true
-## 'os' selection needs to be enabled manually by emailing travis-ci
+sudo: required
+dist: trusty
+
 os:
 - linux
 - osx
