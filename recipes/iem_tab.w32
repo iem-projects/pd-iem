@@ -17,14 +17,8 @@ LIBS="-L$(PDDIR)/bin -L$(PDDIR)/src -Wl,-l:pd.dll -Wl,--enable-auto-image-base -
 build::
 	make -C $(LIBRARY)/src -f makefile_linux TARGET=iem_tab.dll CC=$(CC) LD=$(CC) INCLUDE=$(INCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) LIB=$(LIBS)
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	install -p -m 755 -d $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.dll $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.pd $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.txt $(DESTDIR)/$(LIBRARY)/
-
-clean::
-	-rm -rf $(LIBRARY)

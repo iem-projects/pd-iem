@@ -14,11 +14,5 @@ LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base"
 build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
-
-clean::
-	-rm -rf $(LIBRARY)

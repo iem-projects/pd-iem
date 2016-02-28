@@ -18,19 +18,14 @@ LDFLAGS="-Wl,-l:pd.dll -Wl,--enable-auto-image-base -L$(FFTWPATH)"
 build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS=$(CFLAGS) LDFLAGS=$(LDFLAGS) ALL_LIBS=
 
-depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
-#	fix library names
+depends:: fetch
+	# fix library names
 	sed -e 's|\(-lfftw3\)$$|\1-3|'  -e 's|\(-lfftw3f\)$$|\1-3|' -i $(LIBRARY)/Makefile
-#	fetch dependency: fftw
+depends::
+	# fetch dependency: fftw
 	-rm -rf "$(FFTWPATH)"
 	wget -c -O "$(DEPDIR)/fftw.zip" "ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll32.zip" && \
 		unzip -qd "$(FFTWPATH)" "$(DEPDIR)/fftw.zip"
 
-
 install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) LDFLAGS=$(LDFLAGS) ALL_LIBS=
-
-clean::
-	-rm -rf $(LIBRARY)

@@ -22,8 +22,6 @@ build::
 	make -C $(BUILDDIR)
 
 depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
 	$(BREW) install $(BREWURL)/fftw.rb $(BREWARGS)
 	$(BREW) install $(BREWURL)/gsl.rb $(BREWARGS)
 	$(BREW) install $(BREWURL)/libogg.rb $(BREWARGS)
@@ -35,5 +33,4 @@ install::
 	make -C $(LIBRARY)/build-osx install pkglibdir=$(LIBRARY)
 
 clean::
-	-rm -rf $(LIBRARY)
 	-$(BREW) uninstall libsndfile flac libvorbis libogg gsl fftw --force

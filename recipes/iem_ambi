@@ -9,3 +9,14 @@ all: clean depends build
 
 REV=17459
 SVNURL=https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem
+
+
+depends::
+	-rm -rf $(LIBRARY)
+	-rm -rf Make.include include
+	svn export -q $(SVNURL)/iem_ambi@$(REV) $(LIBRARY)
+	svn export -q $(SVNURL)/include@$(REV)
+	svn export -q $(SVNURL)/Make.include@$(REV)
+clean::
+	-rm -rf $(LIBRARY)
+	-rm -rf Make.include include

@@ -18,13 +18,8 @@ build::
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir=
 
 depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
 # partconv~ and pvoc~ require fftw
 	$(BREW) install $(BREWURL)/fftw.rb $(BREWARGS)
 
 install::
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= install
-
-clean::
-	-rm -rf $(LIBRARY)

@@ -17,12 +17,6 @@ SOURCES+=tcpclient.c tcpserver.c udpsend~.c
 build::
 	make -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= SOURCES="$(SOURCES)"
 
-depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make install -C $(LIBRARY) PD_PATH=$(PDDIR) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="$(OPT_CFLAGS)" EXTENSION=d_fat pkglibdir= SOURCES="$(SOURCES)"
 
-clean::
-	-rm -rf $(LIBRARY)

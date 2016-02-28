@@ -18,10 +18,8 @@ EXT=d_fat
 build::
 	make -C $(LIBRARY)/src PD_INCLUDE=$(PDINCLUDE) CFLAGS=$(CFLAGS) LDFLAGS=$(PD_LDFLAGS) CC=$(CC) LD=$(LD) TARGET=$(LIBRARY).$(EXT)
 
-depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
-#	makefile has 'strip --strip-unneeded' hardcoded, which will produce an error on OSX
+depends:: fetch
+	# makefile has 'strip --strip-unneeded' hardcoded, which will produce an error on OSX
 	sed -e 's|strip --strip-unneeded|echo|' -i '' $(LIBRARY)/src/makefile_linux
 
 install::
@@ -29,7 +27,3 @@ install::
 	install -p -m 644 $(LIBRARY)/*.$(EXT) $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.pd     $(DESTDIR)/$(LIBRARY)/
 	install -p -m 644 $(LIBRARY)/*.txt    $(DESTDIR)/$(LIBRARY)/
-
-clean::
-	-rm -f $(LIBRARY)/src/*.o
-	-rm -f $(LIBRARY)/src/*.pd_*

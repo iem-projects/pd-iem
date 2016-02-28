@@ -17,12 +17,5 @@ LDFLAGS=-shared $(CFLAGS) -L$(PDDIR)/bin -Wl,-l:pd.dll -Wl,--enable-auto-image-b
 build::
 	make -C $(LIBRARY) UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS=
 
-depends::
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make install -C $(LIBRARY) pkglibdir= UNAME=MINGW CC=$(CC) PD_PATH=$(PDDIR) CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" LIBS=
-
-clean::
-	-rm -rf $(LIBRARY)

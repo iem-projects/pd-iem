@@ -12,11 +12,12 @@ REV=17456
 build::
 	make -C $(LIBRARY)
 
-depends:: clean
-	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/pduino@$(REV) $(LIBRARY)
-
 install::
 	make -C $(LIBRARY) install pkglibdir=
+
+depends::
+	-rm -rf $(LIBRARY)
+	svn export -q https://svn.code.sf.net/p/pure-data/svn/trunk/externals/pduino@$(REV) $(LIBRARY)
 
 clean::
 	-rm -rf $(LIBRARY)

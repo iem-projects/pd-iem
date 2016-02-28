@@ -5,7 +5,15 @@
 # ################################ #
 
 all: clean depends build
-.PHONY: all depends build install clean
+.PHONY: all fetch depends build install clean
 
 REV=17459
 SVNURL=https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iem_tab@$(REV)
+
+fetch::
+	-rm -rf $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
+depends:: fetch
+
+clean::
+	-rm -rf $(LIBRARY)

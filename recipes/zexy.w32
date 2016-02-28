@@ -22,12 +22,6 @@ build::
 	../configure --host=i686-w64-mingw32 --with-extension=dll --with-pd=$(PDDIR) || cat config.log
 	make -C $(BUILDDIR)
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
-
-clean::
-	-rm -rf $(LIBRARY)
 

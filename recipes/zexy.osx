@@ -18,11 +18,6 @@ build::
 	../configure --with-extension=$(EXT) --enable-fat-binary=i386,x86_64 --with-pd=$(PDDIR)
 	make -C $(BUILDDIR)
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
 
-clean::
-	-rm -rf $(LIBRARY)

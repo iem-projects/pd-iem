@@ -9,3 +9,9 @@ all: clean depends build
 
 REV=17553
 SVNURL=https://svn.code.sf.net/p/pure-data/svn/trunk/externals/iem/iemnet@$(REV)
+
+depends::
+	-rm -rf $(LIBRARY)
+	svn export -q $(SVNURL) $(LIBRARY)
+clean::
+	-rm -rf $(LIBRARY)

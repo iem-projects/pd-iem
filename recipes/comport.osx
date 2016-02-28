@@ -13,11 +13,5 @@ ARCH_FLAGS=-arch i386 -arch x86_64
 build::
 	make -C $(LIBRARY) FAT_FLAGS="$(ARCH_FLAGS)" OPT_CFLAGS="-g -ftree-vectorize -fast" EXTENSION=d_fat PD_INCLUDE=$(PDDIR)/include pkglibdir=
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make install -C $(LIBRARY) EXTENSION=d_fat pkglibdir=
-
-clean::
-	-rm -rf $(LIBRARY)

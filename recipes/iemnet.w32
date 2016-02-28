@@ -20,9 +20,6 @@ build::
 		LDFLAGS=$(LDFLAGS) \
 		LIBS=-lpthread
 
-depends:: clean
-	svn export -q $(SVNURL) $(LIBRARY)
-
 install::
 	make install -C $(LIBRARY) \
 		pkglibdir= \
@@ -31,6 +28,3 @@ install::
 		PD_PATH=$(PDDIR) \
 		LDFLAGS=$(LDFLAGS) \
 		LIBS=-lpthread
-
-clean::
-	-rm -rf $(LIBRARY)

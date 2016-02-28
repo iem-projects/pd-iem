@@ -32,10 +32,6 @@ build::
 
 depends::
 	mkdir -p "$(DEPDIR)"
-#	fetch Pd-library
-	-rm -rf $(LIBRARY)
-	svn export -q $(SVNURL) $(LIBRARY)
-
 #	fetch dependency: fftw
 	-rm -rf "$(FFTWPATH)"
 	wget -c -O "$(DEPDIR)/fftw.zip" "ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll32.zip" && \
@@ -57,7 +53,3 @@ depends::
 
 install::
 	make -C $(BUILDDIR) install pkglibdir=$(LIBRARY)
-
-clean::
-	-rm -rf $(LIBRARY)
-
